@@ -1,0 +1,8 @@
+LOG:  database system was shut down at 2014-07-30 08:16:54 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+FATAL:  role "feria_de_startups" does not exist
+FATAL:  role "ngaldamez" does not exist
+FATAL:  database "feria_de_startups_development" does not exist
+ERROR:  database "feria_de_startups_test" already exists
+STATEMENT:  CREATE DATABASE "feria_de_startups_test" ENCODING = 'unicode'
