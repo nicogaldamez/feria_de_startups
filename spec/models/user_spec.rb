@@ -18,7 +18,7 @@ require 'spec_helper'
 
 describe User do
   
-  before { @user = User.new(name: 'Ejemplo', username: 'ejemplo', email: 'ejemplo@ejemplo.com', avatar: 'url_a_imagen', twitter_id: 1) }
+  before { @user = User.new(name: 'Ejemplo', username: 'ejemplo', email: 'ejemplo@ejemplo.com', avatar: 'url_a_imagen', uid: 1) }
   
   subject { @user }
   
@@ -26,7 +26,8 @@ describe User do
   it { should respond_to(:username) }
   it { should respond_to(:email) }
   it { should respond_to(:avatar) }
-  it { should respond_to(:twitter_id) }
+  it { should respond_to(:uid) }
+  it { should respond_to(:description) }
   
   it { should be_valid }
   
@@ -40,13 +41,8 @@ describe User do
     it { should_not be_valid }
   end
   
-  describe "cuando el email está vacío" do
-    before { @user.email = " " }
-    it { should_not be_valid }
-  end
-  
-  describe "cuando el twitter_id está vacío" do
-    before { @user.twitter_id = " " }
+  describe "cuando el uid está vacío" do
+    before { @user.uid = " " }
     it { should_not be_valid }
   end
   
@@ -68,10 +64,10 @@ describe User do
     it { should_not be_valid }
   end
   
-  describe "con twitter_id repetido" do
+  describe "con uid repetido" do
     before do
-      user_with_same_twitter_id = @user.dup
-      user_with_same_twitter_id.save
+      user_with_same_uid = @user.dup
+      user_with_same_uid.save
     end
 
     it { should_not be_valid }

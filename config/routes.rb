@@ -1,4 +1,13 @@
 FeriaDeStartups::Application.routes.draw do
+  
+  resources :products
+  
+  get '/auth/:provider/callback', to: 'sessions#create'
+  
+  root 'products#index'
+  
+  delete '/signout', to: 'sessions#destroy', via: :delete
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
