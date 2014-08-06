@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
   
   validates :name,  :presence => true, :uniqueness => true
   validates :username,  :presence => true, :uniqueness => true
-  validates :email, :uniqueness => { case_sensitive: false }
   validates :uid,  :presence => true, :uniqueness => true
   
   has_many :products, :class_name => "Product", :foreign_key => "product_id", dependent: :destroy
