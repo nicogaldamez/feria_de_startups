@@ -1,60 +1,34 @@
 <div id="products">
   <aside class="col-md-3 col-sm-3">
     <% if signed_in? %>
-      <%= link_to "Agrega un producto", new_product_path, class: 'btn btn-success', id: 'btn_new_product' %>
+      <button class="btn btn-success" id="btn_new_product" data-toggle="modal" data-target="#newproduct_modal"> 
+        Agregar un producto 
+      </button>
+      
+      <%= render 'new_product' %>
     <% else %>
       <!-- Login -->
-      <button class="btn btn-success" id="btn_new_product" data-toggle="modal" data-target=".bs-example-modal-sm"> 
+      <button class="btn btn-success" id="btn_new_product" data-toggle="modal" data-target="#signin_modal"> 
         Agrega un producto 
       </button>
       
-      <div id="authentication_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">
-                <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel"> Inicio de sesión </h4>
-            </div>
-            <div class="modal-body">
-              <p> Necesitás iniciar sesión</p>
-              <%= link_to "Iniciar con Twitter", "/auth/twitter", class: "btn btn-primary" %>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render 'signin_popup' %>
+    
     <% end %>
     
-    <p class="text-muted about">
-      La Feria de Startups es una feria donde podés exponer el producto que quieras y ver si a los emprendedores que
-      forman parte de la feria les gusta. <br>
-      Además, podés recorrer la feria y ver lo que otros emprendedores exponen.
-    </p>
+    <div class="about">
+      <p class="text-muted">
+      La Feria de Startups es el lugar de encuentro de las startups. Exponé un producto o servicio en 
+      la feria y obtené la opinión del resto de los usuarios. 
+      </p>
+    </div>
+    
   </aside>
-
+  
   <div class="col-md-9 col-sm-9 ">
 
     <div class="list">
-      <% @products.each do |product| %>
-        <div class="media">
-          <% default_logo_url = image_path('default_logo.png') %>
-          <div class="left pull-left">
-            <% background_color = "background: #{randomized_background_color()}" %>
-            <div class="initial" style="<%= background_color %>">
-              <%= product.initial %>
-            </div>
-            <p> <small class="text-muted"> <%= product.votes.count || 0 %> </small> </p>
-          </div>
-        
-          <div class="media-body">
-            <%= link_to product.name, product.url, class: 'media-heading' %>
-            <span class="text-muted"> <%= product.description %> </span>
-            <p> <small> <%= link_to 'Me gusta', '#', class: 'text-muted' %> </small> </p>
-          </div>
-        </div>
-      
-      <% end %>
+      <%= render partial: 'product', collection: @products %>
     </ul>
   
   </div>

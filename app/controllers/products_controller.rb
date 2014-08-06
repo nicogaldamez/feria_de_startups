@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   
   def index
     @products = Product.all
+    @product = Product.new
   end
   
   def new
@@ -11,11 +12,20 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.user_id = current_user.id
+    
     if @product.save
       redirect_to root_url
     else
-      render 'new'
+      redirect_to root_url
     end
+  end
+  
+  def destroy
+    product = Product.find(params[:id])
+    if product.is_owner?(current_user)
+      product.destroy
+    end
+    redirect_to root_url
   end
   
   private

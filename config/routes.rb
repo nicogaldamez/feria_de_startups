@@ -1,6 +1,15 @@
 FeriaDeStartups::Application.routes.draw do
   
-  resources :products
+  # get "about", to: "static_pages#about"
+  get "votes/up"
+  get "votes/down"
+  resources :products do
+    resources :votes, only: [] do
+      collection do
+        get 'vote'
+      end
+    end
+  end
   
   get '/auth/:provider/callback', to: 'sessions#create'
   

@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   validates :uid,  :presence => true, :uniqueness => true
   
   has_many :products, :class_name => "Product", :foreign_key => "product_id", dependent: :destroy
+  has_many :votes, :class_name => "Vote", :foreign_key => "user_id", dependent: :destroy
   
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
@@ -70,6 +71,12 @@ class User < ActiveRecord::Base
 
       end
 
+  end
+  
+  def voted_for?(product)
+    vote = self.votes.where(product_id: product.id)
+    
+    !vote.empty?
   end
   
 end

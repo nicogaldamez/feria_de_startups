@@ -23,3 +23,22 @@ ERROR:  cached plan must not change result type
 STATEMENT:  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1
 ERROR:  value too long for type character varying(255)
 STATEMENT:  INSERT INTO "products" ("created_at", "description", "logo", "name", "updated_at", "url", "user_id", "video") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-04 10:42:21 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  duplicate key value violates unique constraint "index_products_on_url"
+DETAIL:  Key (url)=(http://www.facebook.com) already exists.
+STATEMENT:  INSERT INTO "products" ("created_at", "description", "name", "updated_at", "url", "user_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-04 23:59:14 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  column "created" does not exist at character 48
+STATEMENT:  SELECT "products".* FROM "products"   ORDER BY created desc

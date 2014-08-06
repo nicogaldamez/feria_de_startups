@@ -1,0 +1,36 @@
+<div class="media">
+  
+  <!-- INICIAL -->
+  <div class="left pull-left" id="product_<%= product.id %>">
+    <% background_color = "background: #{randomized_background_color()}" %>
+    <div class="initial" style="<%= background_color %>">
+      <%= product.initial %>
+    </div>
+    <p> <small class="text-muted votes_count"> <%= product.votes.count || 0 %> </small> </p>
+  </div>
+
+  <!-- TÍTULO Y DESCRIPCIÓN -->
+  <div class="media-body">
+    <%= link_to product.name, product.url, class: 'media-heading' %>
+    <span class="text-muted"> <%= product.description %> </span>
+    
+    <!-- ME GUSTA Y ELIMINAR -->
+    <p> 
+      <small> 
+        <% if signed_in? %>
+          <!-- Si ya lo votó resalto el me gusta -->
+          <% like_class = (current_user.voted_for?(product)) ? 'highlight' : ''  %>
+          <%= link_to 'Me gusta', polymorphic_url([:vote, product, Vote.new]), remote: true, 
+                  class: "like #{like_class}" %> 
+          
+          <!-- Si es dueño muestro un eliminar -->
+          <%= " |  #{link_to 'eliminar', product, data: { href: url_for(product), toggle: 'confirmation' },  
+              class: 'text-danger'}".html_safe if product.is_owner?(current_user) %>
+        <% else %>
+          <%= link_to 'Me gusta', '#', class: 'text-muted',  
+                data: { toggle: "modal", target: "#signin_modal" }  %> 
+        <% end %>
+      </small> 
+    </p>
+  </div>
+</div>

@@ -21,5 +21,6 @@ module FeriaDeStartups
     config.i18n.default_locale = :es
     
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    
   end
 end
