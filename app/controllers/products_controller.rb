@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   
   def index
-    @products = Product.all.limit(50)
+    @products = Product.list(params[:query]).limit(50)
     @product = Product.new
   end
   

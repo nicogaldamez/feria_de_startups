@@ -1,9 +1,8 @@
 module ApplicationHelper
   
   def randomized_background_color
-    colors = ["#fd548a", "#54a9fd", "#E2BDA7", "#fda754", "#fc54f3",
-              "#545bfd", "#6bde6b", "#D98C9C", "#6FCEB9",
-              "#BFBF45", "#FF9B3D", "#8ADCFF"]
+    colors = ["#f95dae", "#5db9f8", "#f16565", "#6cc884", "#40d6d5", "#ff9b3d",
+              "#af5dce", "#f4e265", "#6584ca", "#f55952"]
     colors[rand(colors.size)]
   end
   

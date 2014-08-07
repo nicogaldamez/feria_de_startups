@@ -7,6 +7,10 @@
       font-size: 1.3em;
       width: 90%;
     }
+    .search {
+      width: 90%;
+      margin-bottom: 30px;
+    }
     #btn_new_product {
       background: #8cc59e;
       border-width: 0;
@@ -54,6 +58,14 @@
         color: #428bca;
         font-weight: bold;
       }
+    }
+  }
+  .filter {
+    margin-bottom: 20px;
+    .filter_by { line-height: 20px; }
+    a {
+      line-height: 20px;
+      vertical-align: middle;
     }
   }
 }

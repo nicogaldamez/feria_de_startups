@@ -1,5 +1,11 @@
 <div id="products">
   <aside class="col-md-3 col-sm-3">
+    
+    <%= form_tag products_path, method: :get do %>
+        <%= text_field_tag :query, params[:query], placeholder: 'Buscar producto', 
+            class: 'form-control search input-lg', autocomplete: 'off' %>
+    <% end %>
+    
     <% if signed_in? %>
       <button class="btn btn-success" id="btn_new_product" data-toggle="modal" data-target="#newproduct_modal"> 
         Agregar un producto 
@@ -26,7 +32,15 @@
   </aside>
   
   <div class="col-md-9 col-sm-9 ">
-
+    <% if !params[:query].nil? %>
+      <p class="filter"> 
+        <span class="filter_by"> Filtrando por: <b> <%= params[:query]  %> </b> </span>
+        <%= link_to root_path do  %>
+          <span class="glyphicon glyphicon-remove"> </span>
+        <% end %>
+      </p>
+    <% end %>
+    
     <div class="list">
       <%= render partial: 'product', collection: @products %>
     </ul>

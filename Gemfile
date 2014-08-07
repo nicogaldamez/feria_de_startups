@@ -6,6 +6,7 @@ gem 'pg', '0.15.1'
 
 gem 'omniauth-twitter'
 gem 'bootstrap-sass'
+gem 'pg_search'
 
 group :development do
   gem 'annotate', '2.5.0'
