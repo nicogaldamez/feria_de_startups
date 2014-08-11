@@ -51,3 +51,10 @@ test:
   username: nicogaldamez
   password:
 
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: feria_de_startups_production
+  pool: 5
+  username: feria_de_startups
+  password:
