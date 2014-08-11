@@ -46,7 +46,6 @@ class Product < ActiveRecord::Base
   end
   
   def self.list (query)
-    logger.debug("QUERY: #{query}")
     if query.present?
       result = search(query)
     else
@@ -55,8 +54,8 @@ class Product < ActiveRecord::Base
     
     # Los productos se ordenan por VOTOS - DIAS_PUBLICADO + 1
     result = result.joins("LEFT JOIN votes ON votes.product_id = products.id")
-    result = result.select("(count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
-                            + 10 - DATE_PART('day', current_date - products.created_at)
+    result = result.select("(count(votes) / (DATE_PART('minute', current_date - products.created_at) + 1))
+                            + 10 - DATE_PART('minute', current_date - products.created_at)
                             , 
                             products.id, products.name, products.created_at,
                             products.url, products.description, products.user_id")
