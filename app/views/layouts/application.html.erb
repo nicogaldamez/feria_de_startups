@@ -3,6 +3,10 @@
 <head>
   <title>Feria De Startups</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "phones", media: "only screen and (max-device-width: 480px)", 
+    "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "tablets", media: "only screen and (min-device-width: 481px) and (max-device-width: 1024px)", 
+    "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>

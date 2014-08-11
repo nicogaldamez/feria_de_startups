@@ -2,7 +2,6 @@
 @import "bootstrap";
 
 /* universal */
-
 html {
   overflow-y: scroll;
 }
@@ -25,8 +24,8 @@ p {
 
 /* header */
 header {
-  background: image_url('banderines.jpg') no-repeat;
-  background-position: -250px top;
+  background: image_url('banderines.png') no-repeat;
+  background-position: -300px top;
   padding-top: 40px;
   height: 110px;
   margin-bottom: 60px;
@@ -75,5 +74,3 @@ form {
     margin-bottom: 20px;
   }
 }
-
-/* ABOUT */
