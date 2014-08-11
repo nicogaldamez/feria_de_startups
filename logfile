@@ -76,3 +76,23 @@ STATEMENT:  SELECT  (count(votes) / (DATE_PART('day', current_date - products.cr
 	                            , 
 	                            products.id, products.name, products.created_at,
 	                            products.url, products.description, products.user_id FROM "products" LEFT JOIN votes ON votes.product_id = products.id GROUP BY products.id  ORDER BY 1 DESC, products.created_at DESC LIMIT 50
+ERROR:  relation "users" does not exist at character 24
+STATEMENT:  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1
+ERROR:  relation "votes" does not exist at character 22
+STATEMENT:  SELECT COUNT(*) FROM "votes"  WHERE "votes"."product_id" = $1
+ERROR:  relation "votes" does not exist at character 22
+STATEMENT:  SELECT COUNT(*) FROM "votes"  WHERE "votes"."product_id" = $1
+ERROR:  relation "votes" does not exist at character 22
+STATEMENT:  SELECT COUNT(*) FROM "votes"  WHERE "votes"."product_id" = $1
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+FATAL:  terminating connection due to administrator command
+FATAL:  terminating connection due to administrator command
+FATAL:  terminating connection due to administrator command
+FATAL:  terminating connection due to administrator command
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-11 17:09:22 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
