@@ -4,7 +4,7 @@
   <div class="left pull-left" id="product_<%= product.id %>">
     <% background_color = "background: #{randomized_background_color()}" %>
     <div class="initial" style="<%= background_color %>">
-      <%= product.initial %>
+      <%= product.initial.upcase %>
     </div>
     <p> <small class="text-muted votes_count"> <%= product.votes.count || 0 %> </small> </p>
   </div>
