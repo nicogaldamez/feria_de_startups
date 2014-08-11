@@ -22,5 +22,8 @@ module FeriaDeStartups
     
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     
+    config.serve_static_assets = true
+    config.assets.initialize_on_precompile = true
+    config.assets.compile = true
   end
 end
