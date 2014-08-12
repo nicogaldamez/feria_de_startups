@@ -25,5 +25,7 @@ module FeriaDeStartups
     config.serve_static_assets = true
     config.assets.initialize_on_precompile = true
     config.assets.compile = true
+    
+    GA.tracker = "UA-53750124-1"
   end
 end
