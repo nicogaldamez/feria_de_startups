@@ -11,6 +11,8 @@
  *= require_self
  *= require custom
  *= require products
+ *= require phones
+ *= require tablets
  */
 
 
