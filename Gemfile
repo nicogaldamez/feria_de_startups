@@ -7,6 +7,7 @@ gem 'pg', '0.15.1'
 gem 'omniauth-twitter'
 gem 'bootstrap-sass'
 gem 'pg_search'
+gem 'google-analytics-rails'
 
 group :development do
   gem 'annotate', '2.5.0'
@@ -33,6 +34,5 @@ group :doc do
 end
 
 group :production do
-  gem 'google-analytics-rails'
   gem 'rails_12factor', '0.0.2'
 end
