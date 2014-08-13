@@ -1,6 +1,5 @@
 FeriaDeStartups::Application.routes.draw do
   
-  # get "about", to: "static_pages#about"
   get "votes/up"
   get "votes/down"
   resources :products do
@@ -12,6 +11,7 @@ FeriaDeStartups::Application.routes.draw do
   end
   
   get '/auth/:provider/callback', to: 'sessions#create'
+  match 'auth/failure', to: redirect('/'), via: [:get, :post]
   
   root 'products#index'
   

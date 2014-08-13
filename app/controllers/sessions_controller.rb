@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
   
   def create
+    redirect_to root_url unless params[:denied].nil?
+    
     user = User.from_omniauth(env['omniauth.auth'])
     sign_in user
     redirect_to root_url, notice: "Signed in."
