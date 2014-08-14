@@ -28,8 +28,14 @@ describe User do
   it { should respond_to(:avatar) }
   it { should respond_to(:uid) }
   it { should respond_to(:description) }
+  it { should respond_to(:receive_notifications) }
   
   it { should be_valid }
+  
+  describe "por defecto recibe notificaciones" do
+    before { @user.save }
+    it { @user.receive_notifications.should be_true }
+  end
   
   describe "cuando el nombre está vacío" do
     before { @user.name = " " }

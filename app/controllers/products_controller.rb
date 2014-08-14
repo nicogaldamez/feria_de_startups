@@ -2,11 +2,11 @@ class ProductsController < ApplicationController
   
   def index
     @products = Product.list(params[:query]).limit(50)
-    @product = Product.new
   end
   
   def new
     @product = Product.new
+    render 'new', layout: nil
   end
   
   def create

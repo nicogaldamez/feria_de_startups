@@ -103,3 +103,5 @@ LOG:  database system is shut down
 LOG:  database system was shut down at 2014-08-12 23:18:18 ART
 LOG:  autovacuum launcher started
 LOG:  database system is ready to accept connections
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1
