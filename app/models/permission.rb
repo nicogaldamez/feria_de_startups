@@ -15,7 +15,7 @@ class Permission
         product.user_id == user.id
       end
       
-      allow :users, [:edit] do |u|
+      allow :users, [:edit, :update] do |u|
         u.id == user.id
       end
     end
