@@ -1,0 +1,7 @@
+Hola <%= @user.name %>!, Tus productos que han recibido votos hoy son: <br>
+
+<ul>
+  <% @products.each do |product| %>
+    <li> <%= product.name %> </li>
+  <% end %> 
+</ul>

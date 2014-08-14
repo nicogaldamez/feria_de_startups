@@ -10,6 +10,7 @@
 #  video       :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  user_id     :integer
 #
 
 class Product < ActiveRecord::Base
@@ -61,5 +62,17 @@ class Product < ActiveRecord::Base
                             products.url, products.description, products.user_id")
     result = result.group('products.id')
     result = result.order('1 DESC, products.created_at DESC')
+  end
+  
+  # Retorna los productos del usuario y cantidad de votos 
+  # que recibieron votos en una fecha
+  def self.voted(user, date)
+    result = Product.all
+    result = result.joins("INNER JOIN votes ON votes.product_id = products.id")
+    result = result.where('products.user_id = ? and votes.created_at > ?', user.id, date)
+    result = result.select('count(votes.id) as votes_count, products.*')
+    result = result.group('products.id')
+    result = result.order('1 desc')
+    result
   end
 end

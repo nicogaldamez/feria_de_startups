@@ -2,14 +2,17 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  twitter_id :string(255)
-#  avatar     :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  username   :string(255)
+#  id                    :integer          not null, primary key
+#  name                  :string(255)
+#  email                 :string(255)
+#  uid                   :string(255)
+#  avatar                :string(255)
+#  created_at            :datetime
+#  updated_at            :datetime
+#  username              :string(255)
+#  provider              :string(255)
+#  description           :text
+#  receive_notifications :boolean          default(TRUE)
 #
 
 class User < ActiveRecord::Base
@@ -21,6 +24,8 @@ class User < ActiveRecord::Base
   
   has_many :products, :class_name => "Product", :foreign_key => "product_id", dependent: :destroy
   has_many :votes, :class_name => "Vote", :foreign_key => "user_id", dependent: :destroy
+  
+  scope :to_notify, -> { where('receive_notifications and email is not null') }
   
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
@@ -76,6 +81,14 @@ class User < ActiveRecord::Base
     vote = self.votes.where(product_id: product.id)
     
     !vote.empty?
+  end
+  
+  def self.send_daily_email
+    users = User.to_notify
+    users.each do |user|
+      products = Product.voted(user, Date.today)
+      UserMailer.daily(user, products).deliver unless products.empty? or user.email.nil?
+    end
   end
   
 end

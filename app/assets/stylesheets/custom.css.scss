@@ -22,6 +22,25 @@ p {
   font-weight: bold;
 }
 
+#alerts {
+  position: fixed;
+  top:0px;
+  left: 50%;
+  width: 500px;
+  margin-left: -250px;
+  text-align: center;
+  z-index: 2000;
+}
+
+.alert { padding: 8px; }
+.alert-dismissible .close { right: 0px; }
+
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
 /* header */
 header {
   background: image_url('banderines.png') no-repeat;

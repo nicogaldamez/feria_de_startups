@@ -1,4 +1,19 @@
 # encoding: UTF-8
+# == Schema Information
+#
+# Table name: products
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  description :text
+#  url         :string(255)
+#  logo        :string(255)
+#  video       :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  user_id     :integer
+#
+
 
 require 'spec_helper'
 

@@ -1,0 +1,10 @@
+<div id="alerts">
+	<% flash.each do |key, value| %>
+    <% 
+    # Agrego el botón de cerrar
+    value = '<button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Cerrar</span></button>'.html_safe + value %>
+		<%= content_tag(:div, value, class: "alert-dismissible alert alert-#{key}") %>
+	<% end %>
+</div>

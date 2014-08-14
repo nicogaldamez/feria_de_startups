@@ -1,6 +1,7 @@
 # Basado en https://github.com/svenfuchs/rails-i18n/blob/master/rails/locale/es-MX.yml
 
 es:
+  no_permission: "No tienes permiso para realizar la operación"
   
   # COMMON
   number:

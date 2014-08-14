@@ -105,3 +105,13 @@ LOG:  autovacuum launcher started
 LOG:  database system is ready to accept connections
 ERROR:  cached plan must not change result type
 STATEMENT:  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1
+ERROR:  column products.product_id does not exist at character 104
+STATEMENT:  SELECT "products".* FROM "products" INNER JOIN "votes" ON "votes"."product_id" = "products"."id" WHERE "products"."product_id" = $1 AND (votes.created_at = '2014-08-14')
+ERROR:  column products.product_id does not exist at character 94
+STATEMENT:  SELECT "products".* FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE "products"."product_id" = $1 AND (votes.created_at = '2014-08-14')
+ERROR:  argument of WHERE must be type boolean, not type record at character 94
+STATEMENT:  SELECT "products".* FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE (products.user_id = 2, votes.created_at = '2014-08-14')
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 8
+STATEMENT:  SELECT products.*, count(votes) FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE (products.user_id = 2 and votes.created_at = '2014-08-14')
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 8
+STATEMENT:  SELECT products.*, count(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE (products.user_id = 2 and votes.created_at = '2014-08-14')

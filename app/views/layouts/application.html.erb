@@ -10,12 +10,13 @@
   <%= analytics_init if Rails.env.production? %>
 </head>
 <body>
-<%= render 'layouts/header' %>
-      <!-- <% flash.each do |key, value| %>
-        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
-      <% end %> -->
+  
+  <%= render 'layouts/header' %>
 
-<%= yield %>
+  <div id="main_container">
+    <%= render 'layouts/alerts' %>
+    <%= yield %>
+  </div>
 
 </body>
 </html>

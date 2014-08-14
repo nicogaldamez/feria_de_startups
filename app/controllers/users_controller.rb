@@ -22,5 +22,9 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:email, :receive_notifications)
     end  
+    
+    def current_resource
+      @user = @current_resource ||= User.find(params[:id]) if params[:id]
+    end
 
 end

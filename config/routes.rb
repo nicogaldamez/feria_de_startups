@@ -11,6 +11,9 @@ FeriaDeStartups::Application.routes.draw do
   
   get '/auth/:provider/callback', to: 'sessions#create'
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
+
+  # Admin
+  get '/admin/send_daily'
   
   root 'products#index'
   

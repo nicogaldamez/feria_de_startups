@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: votes
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  product_id :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Vote < ActiveRecord::Base
   validates :user_id, :presence => true
   validates :product_id, :presence => true

@@ -34,4 +34,8 @@ class ProductsController < ApplicationController
       params.require(:product).permit(:name, :url, :logo,
                                    :description, :video, :description)
     end  
+    
+    def current_resource
+      @product = @current_resource ||= Product.find(params[:id]) if params[:id]
+    end
 end
