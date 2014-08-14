@@ -34,11 +34,15 @@ p {
 
 .alert { padding: 8px; }
 .alert-dismissible .close { right: 0px; }
-
 .alert-error {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
+}
+.alert-notice {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
 }
 
 /* header */

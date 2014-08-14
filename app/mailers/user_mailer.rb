@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "no-reply@feriadestartups.com"
+  default from: "Feria de Startups <reply@feriadestartups.com>"
 
   def daily(user, products)
     @user = user
