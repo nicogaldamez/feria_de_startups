@@ -37,6 +37,9 @@
     .media-heading {
       color: black;
       font-size: 1.2em;
+      &:visited {
+        color: #888;
+      }
     } 
     .media-body {
       padding-top: 5px;

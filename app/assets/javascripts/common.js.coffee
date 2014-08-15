@@ -18,8 +18,18 @@ String::capitalize = ->
     $(modal + " .modal-title").html title
     $(modal).modal modalOptions
     return
+
+# AGREGO HTTP AL VALOR INGRESADO EN UN INPUT TYPE URL    
+@addHttp = (input) ->    
+  string = input.value
+  return false unless string != ''
+  
+  if (!(/^http:\/\//.test(string)) && (!(/^https:\/\//.test(string))))
+      string = "http://" + string
+  input.value = string
   
 $ ()->
+  
   # MIS DATOS
   $("a[data-target=#modal]").click (ev) ->
     ev.preventDefault()

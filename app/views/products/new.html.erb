@@ -11,12 +11,12 @@
   <div class="row">
     <div class="form-group col-md-8">
       <%= f.text_field :url, placeholder: "Url del producto", type: 'url', required: true, 
-          class: "form-control" %>
+          class: "form-control", onblur: "addHttp(this)" %>
     </div>
   </div>
   <div class="form-group">
     <%= f.text_area :description, placeholder: "Una pequeña descripción del producto", required: true, 
-      maxlength: 120,class: "form-control" %>
+      maxlength: 120, class: "form-control" %>
   </div>
 	<div class="submit">
 		<%= f.submit "Guardar", class: 'btn btn-success' %>			

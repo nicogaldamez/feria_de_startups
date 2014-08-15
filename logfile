@@ -115,3 +115,10 @@ ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an
 STATEMENT:  SELECT products.*, count(votes) FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE (products.user_id = 2 and votes.created_at = '2014-08-14')
 ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 8
 STATEMENT:  SELECT products.*, count(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE (products.user_id = 2 and votes.created_at = '2014-08-14')
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-14 13:52:25 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
