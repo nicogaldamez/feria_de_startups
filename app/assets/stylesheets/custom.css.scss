@@ -60,6 +60,19 @@ header {
   h1 {
     margin-top: 0px;
     text-align: center;
+    .text {
+      position: relative;
+      width: 100%;
+      overflow: visible;
+      small {
+        position: absolute;
+        top: 42px;
+        left: 0px;
+        text-align: left;
+        font-size: 15px;
+        font-weight: 300;
+      }
+    }
   }
 }
 
