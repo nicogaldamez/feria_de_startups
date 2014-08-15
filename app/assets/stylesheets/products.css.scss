@@ -6,6 +6,7 @@
     .about {
       font-size: 1.3em;
       width: 90%;
+      p { margin-bottom: 20px; }
     }
     .search {
       width: 90%;
@@ -46,6 +47,7 @@
     }
     
     .initial {
+      position: relative;
       border-radius: 50%;
       width: 50px;
       height: 50px;
@@ -53,6 +55,19 @@
       color: white;
       text-align: center;
       font-size: 1.2em;
+      .tweet_link {
+        position: absolute;
+        display: none; 
+        left: 10px;
+        top: 10px;
+        height: 34px;
+        width: 30px;
+      }
+      &:hover {
+        background: #FFF !important;
+        border: 1px solid #999;
+        .tweet_link { display: block }
+      }
     }
     
     .like {

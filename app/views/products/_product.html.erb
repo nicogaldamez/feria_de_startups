@@ -5,6 +5,13 @@
     <% background_color = "background: #{randomized_background_color()}" %>
     <div class="initial" style="<%= background_color %>">
       <%= product.initial.upcase %>
+      <% 
+      product_url = u product.url
+      text = u "#{product.name}: #{product.description}"
+      via = 'feriadestartups'
+      tweet_link = "https://twitter.com/intent/tweet?url=#{product_url}&text=#{text}&via=#{via}"
+       %>
+      <%= link_to (image_tag "twitter_logo.png"), tweet_link, class: 'tweet_link', title: 'Tweet' %>
     </div>
     <p> <small class="text-muted votes_count"> <%= product.votes.count || 0 %> </small> </p>
   </div>
