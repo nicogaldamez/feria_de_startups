@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :votes, :class_name => "Vote", :foreign_key => "user_id", dependent: :destroy
   
   scope :to_notify, -> { where('receive_notifications and email is not null') }
+  scope :today_users, -> { where('created_at::date = now()::date') }
   
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)

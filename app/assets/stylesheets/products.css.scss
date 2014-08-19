@@ -88,6 +88,14 @@
   }
 }
 
+#end_of_list {
+  margin: 20px 0px;
+  border-top: 1px solid #eee;
+  padding: 20px 0px;
+  text-align: center;
+  color: #777;
+}
+
 .spin {
   -webkit-animation: animation 1000ms linear both;
   animation: animation 1000ms linear both;

@@ -19,9 +19,12 @@ class Product < ActiveRecord::Base
   validates :description,  :presence => true
   validates :url,  :presence => true
   validates :user_id,  :presence => true
+  validates :name, uniqueness: {scope: :url, message: ' y la url ya existen'}
   
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   has_many :votes, :class_name => "Vote", :foreign_key => "product_id", dependent: :destroy
+  
+  scope :today_products, -> { where('created_at::date = now()::date') }
   
   include PgSearch
   pg_search_scope :search, against: [:name, :description],
@@ -66,12 +69,19 @@ class Product < ActiveRecord::Base
   
   # Retorna los productos del usuario y cantidad de votos 
   # que recibieron votos en una fecha
-  def self.voted(user, date)
+  def self.voted(user='all', date)
     result = Product.all
     result = result.joins("INNER JOIN votes ON votes.product_id = products.id")
-    result = result.where('products.user_id = ? and votes.created_at > ?', user.id, date)
-    result = result.select('count(votes.id) as votes_count, products.*')
-    result = result.group('products.id')
+    result = result.joins("INNER JOIN users ON users.id = products.user_id")
+    
+    if user == 'all' # Todos los usuarios
+      result = result.where('votes.created_at > ?', date)
+    else
+      result = result.where('products.user_id = ? and votes.created_at > ?', user.id, date)
+    end
+    
+    result = result.select('count(votes.id) as votes_count, products.*, users.name as user_name')
+    result = result.group('products.id, users.id')
     result = result.order('1 desc')
     result
   end

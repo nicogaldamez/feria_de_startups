@@ -14,9 +14,9 @@ class ProductsController < ApplicationController
     @product.user_id = current_user.id
     
     if @product.save
-      redirect_to root_url
+      render 'products/_product', locals: { product: @product }, layout: false, status: :created
     else
-      redirect_to root_url
+      raise(RequestExceptions::BadRequestError.new(@product.errors.full_messages))
     end
   end
   

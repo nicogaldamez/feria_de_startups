@@ -54,13 +54,33 @@ describe Product do
     it { should_not be_valid}
   end
   
-  describe "con url repetida" do
+  describe "con nombre y url repetida" do
     before do 
       product_with_same_url = @product.dup
       product_with_same_url.save
     end
     
     it { should_not be_valid }    
+  end
+  
+  describe "con nombre distinto y url repetida" do
+    before do 
+      product_with_same_url = @product.dup
+      product_with_same_url.name = 'Otro nombre'
+      product_with_same_url.save
+    end
+    
+    it { should be_valid }    
+  end
+  
+  describe "con nombre repetido y url distinta" do
+    before do 
+      product_with_same_url = @product.dup
+      product_with_same_url.url = 'http://otraurl.com'
+      product_with_same_url.save
+    end
+    
+    it { should be_valid }    
   end
   
 end

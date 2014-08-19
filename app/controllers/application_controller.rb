@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   
   include SessionsHelper
   
+  delegate :allow?, to: :current_permission
+  helper_method :allow?
   
   before_filter :authorize
  
@@ -22,7 +24,6 @@ class ApplicationController < ActionController::Base
       @message = exception.message
       respond_to do |f|
         f.json { render 'shared/error', layout: false, status: 400 }
-        f.js { render 'shared/error', layout: false, status: 400 }
         f.html do
           flash[:error] = @message 
           redirect_to root_url
@@ -35,7 +36,6 @@ class ApplicationController < ActionController::Base
       @message = exception.message
       respond_to do |f|
         f.json { render 'shared/error', layout: false, status: 401 }
-        f.js { render 'shared/error', layout: false, status: 401 }
         f.html do
           flash[:error] = @message 
           redirect_to root_url
@@ -48,7 +48,6 @@ class ApplicationController < ActionController::Base
       @message = exception.message
       respond_to do |f|
         f.json { render 'shared/error', layout: false, status: 403 }
-        f.js { render 'shared/error', layout: false, status: 403 }
         f.html do
           flash[:error] = @message 
           redirect_to root_url

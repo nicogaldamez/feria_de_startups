@@ -207,6 +207,9 @@ es:
         odd: "debe ser un número non"
 
   activerecord:
+    attributes:
+      product:
+        name: 'El nombre'
     errors:
       template:
         header:

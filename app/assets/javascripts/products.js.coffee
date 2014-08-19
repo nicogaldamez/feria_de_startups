@@ -1,19 +1,11 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-$ ()->
-  
-  # ELIMINAR
-  $('[data-toggle="confirmation"]').confirmation
-    btnOkLabel: "Si"
-    btnCancelLabel: "No"
-    dataMethod: 'delete'
-  
-  # NUEVO PRODUCTO
+# NUEVO PRODUCTO
+@newProduct = ->
   $("form.new_product").on "ajax:success", (event, data, status, xhr) ->
     $("form.new_product")[0].reset()
-    $('#newproduct_modal').modal('hide')
+    $('form.new_product').closest('.modal').modal('hide')
     $('#error_explanation').hide()
+    $('#products .list').prepend(data)
+    productsListEvents()
 
   $("form.new_product").on "ajax:error", (event, xhr, status, error) ->
     errors = jQuery.parseJSON(xhr.responseText)
@@ -21,10 +13,20 @@ $ ()->
     
     $('#error_explanation').append('<ul>')
     $.each errors, (field, error) ->
-      $('#error_explanation').append('<li>' + field.capitalize() + ' ' + error[0] + '</li>')
+      $('#error_explanation').append('<li>' + error[0] + '</li>')
     $('#error_explanation').append('</ul>')
     $('#error_explanation').show()
     
+    
+# EVENTOS LISTADO DE PRODUCTOS
+@productsListEvents = ->
+  
+  # ELIMINAR PRODUCTO
+  $('[data-toggle="confirmation"]').confirmation
+    btnOkLabel: "Si"
+    btnCancelLabel: "No"
+    dataMethod: 'delete'
+  
   # ME GUSTA
   $('.like').bind 'ajax:success', (event, data, status, xhr)->
     id = data.id
@@ -38,4 +40,8 @@ $ ()->
       $('#product_'+id+' .initial').removeClass 'spin'
       return
     ), 100
+# ON READY
+$ ()->
+  productsListEvents()
+  
     

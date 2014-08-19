@@ -1,0 +1,42 @@
+<div class="container">
+  <h1> Panel de Administración </h1>
+
+  <div class="col-md-6">
+    <h3> Productos de hoy </h3>
+    <ul>
+      <% @today_products.each do |product| %>
+        <li> <b> <%= link_to product.name, product.url %> </b> - <%= product.user.name %> </li>
+      <% end %>
+    </ul>
+    <% if @today_products.size == 0 %>
+      <small class="text-muted"> No hay productos </small>
+    <% end %>
+  </div>
+  
+  <div class="col-md-6">
+    <h3> Votos de hoy </h3>
+    <ul>
+      <% @today_votes.each do |product| %>
+        <li> <b> <%= link_to product.name, product.url %> (<%= product.votes_count %>) </b> 
+          - <%= product.user_name %> </li>
+      <% end %>
+    </ul>
+    <% if @today_votes.size == 0 %>
+      <small class="text-muted"> No hubo votos hoy </small>
+    <% end %>
+    <%= link_to "Enviar mail diario", admin_send_daily_path, class: 'btn btn-success', remote: true %>
+  </div>
+  
+  <div class="col-md-6">
+    <h3> Usuarios de hoy </h3>
+    <ul>
+      <% @today_users.each do |user| %>
+        <li> <b> user.name </b> </li>
+      <% end %>
+    </ul>
+    <% if @today_users.size == 0 %>
+      <small class="text-muted"> No se registraron usuarios hoy </small>
+    <% end %>
+  </div>
+
+</div>

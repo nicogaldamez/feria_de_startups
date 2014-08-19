@@ -1,5 +1,24 @@
 @media only screen and (max-device-width: 480px) {
   header {
     background: none;
+    height: 160px;
+    
+    .logo {
+      display: block;
+    }
   }
+  
+  #user_nav {
+    position: relative;
+    left: 20px;
+    top: 0px;
+  }
+  
+  #products aside {
+    margin-bottom: 25px;
+    #btn_new_product, .search { margin-bottom: 5px; }
+    
+  }
+  
+  .mobile_tweet_link { display: inline; }
 }

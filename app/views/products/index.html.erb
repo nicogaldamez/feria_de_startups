@@ -43,11 +43,16 @@
     <% end %>
     
     <div class="list">
-      <%= render partial: 'product', collection: @products %>
-    </ul>
-  
+      <%= render partial: 'product', collection: @products, as: 'product' %>
+      
+    </div>
   </div>
+  
+  <p id="end_of_list" class="col-md-12 col-sm-12">
+    Estos han sido los productos destacados del día. Te esperamos mañana :)
+  </p>
 </div>
+
 
 <!-- POPUPS -->
 <%= render 'layouts/small_popup' %>
