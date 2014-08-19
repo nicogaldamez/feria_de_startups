@@ -4,13 +4,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<style type="text/css">
 		body, p, h1 {
-			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 300;
+			
 		}
-    h1 { text-align: center; }
-    .logo img { vertical-align: top;}
-    ul { margin-bottom: 20px;}
-    li { list-style: none; margin-bottom: 10px;}
+    h1 {  }
+    .logo img { }
+    ul { }
+    li { }
     .initial {
       border-radius: 50%;
       width: 50px;
@@ -20,9 +19,33 @@
       text-align: center;
       font-size: 1.2em;
     }
-    footer {text-align: center;}
+    footer {}
     .btn {
-      background: #8cc59e;
+      
+    }
+	</style>
+</head>
+  <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;"> 
+    <h1 style="text-align: center;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;"> 
+      <%= link_to image_tag("logo_mail.jpg", style: 'vertical-align: top;'), root_path, class: 'logo' %>
+      Feria de Startups 
+    </h1>
+    <blockquote>
+      <p> Felicitaciones <%= @user.name %>!, algunos de tus productos han recibido votos hoy: </p>
+
+      <ul style="margin-bottom: 20px;">
+        <% @products.each do |product| %>
+          <li style="list-style: none; margin-bottom: 10px;"> 
+            <b> <%= product.name %> </b>: <%= "#{product.votes_count} votos" %> 
+          </li>
+        <% end %> 
+      </ul>
+    </blockquote>
+    <footer style="text-align: center;">
+      <%= link_to "Ir a la Feria de Startups", root_url, class: 'btn',
+           style: 'background: #8cc59e;
       border-width: 0;
       font-size: 1.3em;
       width: 90%;
@@ -34,28 +57,7 @@
       border-color: #4cae4c;
       text-decoration: none;
       line-height: 1.428571429;
-      border-radius: 4px;
-    }
-	</style>
-</head>
-  <body> 
-    <h1> 
-      <%= link_to image_tag("logo_mail.jpg"), root_path, class: 'logo' %>
-      Feria de Startups 
-    </h1>
-    <blockquote>
-      <p> Felicitaciones <%= @user.name %>!, algunos de tus productos han recibido votos hoy: </p>
-
-      <ul>
-        <% @products.each do |product| %>
-          <li> 
-            <b> <%= product.name %> </b>: <%= "#{product.votes_count} votos" %> 
-          </li>
-        <% end %> 
-      </ul>
-    </blockquote>
-    <footer>
-      <%= link_to "Ir a la Feria de Startups", root_url, class: 'btn' %>
+      border-radius: 4px;'%>
     </footer>
   </body>
 </html>
