@@ -5,9 +5,20 @@
     <h3> Productos de hoy </h3>
     <ul>
       <% @today_products.each do |product| %>
-        <li> <b> <%= link_to product.name, product.url %> </b> - <%= product.user.name %> </li>
+        <% 
+        product_url = u product.url
+        text = u "#{product.name}: #{product.description}"
+        via = 'feriadestartups'
+        tweet_link = "https://twitter.com/intent/tweet?url=#{product_url}&text=#{text}&via=#{via}"
+         %>
+        
+        <li> 
+          <b> <%= link_to product.name, product.url %> </b> - <%= product.user.name %> 
+          | <%= link_to "Tweet", tweet_link, class: 'tweet_link' %>
+        </li>
       <% end %>
     </ul>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
     <% if @today_products.size == 0 %>
       <small class="text-muted"> No hay productos </small>
     <% end %>
