@@ -31,7 +31,7 @@
     <h3> Usuarios de hoy </h3>
     <ul>
       <% @today_users.each do |user| %>
-        <li> <b> user.name </b> </li>
+        <li> <b> <%= user.name %> </b> </li>
       <% end %>
     </ul>
     <% if @today_users.size == 0 %>

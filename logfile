@@ -133,3 +133,7 @@ LOG:  autovacuum launcher started
 LOG:  database system is ready to accept connections
 ERROR:  column "users.name" must appear in the GROUP BY clause or be used in an aggregate function at character 52
 STATEMENT:  SELECT count(votes.id) as votes_count, products.*, users.name as user_name FROM "products" INNER JOIN votes ON votes.product_id = products.id INNER JOIN users ON users.id = products.user_id WHERE (votes.created_at > '2014-08-19') GROUP BY products.id  ORDER BY 1 desc
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
