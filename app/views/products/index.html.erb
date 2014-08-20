@@ -3,7 +3,7 @@
     
     <%= form_tag products_path, method: :get do %>
         <%= text_field_tag :query, params[:query], placeholder: 'Buscar producto', 
-            class: 'form-control search input-lg', autocomplete: 'off' %>
+            class: 'form-control search input-lg', autocomplete: 'off', required: true %>
     <% end %>
     
     <% if signed_in? %>
