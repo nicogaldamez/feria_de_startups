@@ -61,10 +61,11 @@ class Product < ActiveRecord::Base
     result = result.select("(count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
                             + 14400 - DATE_PART('day', current_date - products.created_at)
                             , 
+                            (products.created_at > now() - interval '24 hour'),
                             products.id, products.name, products.created_at,
                             products.url, products.description, products.user_id")
     result = result.group('products.id')
-    result = result.order('1 DESC, products.created_at DESC')
+    result = result.order('2 DESC, 1 DESC, products.created_at DESC')
   end
   
   # Retorna los productos del usuario y cantidad de votos 
