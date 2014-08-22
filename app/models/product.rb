@@ -24,7 +24,7 @@ class Product < ActiveRecord::Base
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   has_many :votes, :class_name => "Vote", :foreign_key => "product_id", dependent: :destroy
   
-  scope :today_products, -> { where('created_at::date = now()::date') }
+  scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
   
   include PgSearch
   pg_search_scope :search, against: [:name, :description],

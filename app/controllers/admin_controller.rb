@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   
   def index
-    @today_votes = Product.voted('all', Date.today)
+    @today_votes = Product.voted('all', Time.now - 24.hour)
     @today_products = Product.today_products
     @today_users = User.today_users
   end
