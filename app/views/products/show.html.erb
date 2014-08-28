@@ -9,7 +9,7 @@
         </div>
       </div>
     
-      <div class="media-body" id="product_<%= @product.id %>">
+      <div class="media-body" id="popup_product_<%= @product.id %>">
         <%= link_to @product.name, @product.url, class: 'media-heading', target: '_blank' %>
         <small class="votes_count"> <%= @product.votes.count || 0 %> votos </small>
       </div>
