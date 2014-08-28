@@ -1,0 +1,45 @@
+<div id="show_product" class="row">
+  
+  <div class="col-md-5">
+    <div class="media">
+      <div class="left pull-left">
+        <% background_color = "background: #{randomized_background_color()}" %>
+        <div class="initial" style="<%= background_color %>">
+          <%= @product.initial.upcase %>
+        </div>
+      </div>
+    
+      <div class="media-body" id="product_<%= @product.id %>">
+        <%= link_to @product.name, @product.url, class: 'media-heading', target: '_blank' %>
+        <small class="votes_count"> <%= @product.votes.count || 0 %> votos </small>
+      </div>
+    </div>
+    
+    <div>
+      <% 
+      product_url = u (view_product_url(@product))
+      text = u "#{@product.name}: #{@product.description}"
+      via = 'feriadestartups'
+      tweet_link = "https://twitter.com/intent/tweet?url=#{product_url}&text=#{text}&via=#{via}"
+       %>
+      <%= link_to "Tweet", tweet_link, class: 'btn btn-primary btn-sm' %>
+      
+      <% if signed_in? %>
+        <!-- Si ya lo votó resalto el me gusta -->
+        <% btn_text = (current_user.voted_for?(@product)) ? 'Ya te gusta' : 'Me gusta'  %>
+        <%= link_to btn_text, polymorphic_url([:vote, @product, Vote.new]), remote: true, 
+                class: "btn btn-success btn-sm popup_like" %> 
+      <% else %>
+        <%= link_to 'Me gusta', '/auth/twitter', class: 'btn btn-success btn-sm'  %> 
+      <% end %>
+    </div>
+  </div>  
+      
+  <div class="col-md-5 col-md-offset-1 right">    
+      <span class="text-muted"> <%= @product.description %> </span>
+      <p> <%= link_to truncate(@product.url, :length => 35, :omission => '...'), @product.url, target: '_blank' %> </p>
+  </div>
+  
+</div>
+
+<%= javascript_tag 'viewProductEvents()' %>

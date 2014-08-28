@@ -61,3 +61,8 @@
 <% if signed_in? && current_user.email.nil? %>
   <%= javascript_tag "openModal('small', '#{edit_user_path(current_user)}', 'Mis Datos', { closeDisabled: true })" %>
 <% end %>
+
+<!-- QUIERE VER UN PRODUCTO? -->
+<% if !@product.nil? %>
+  <%= javascript_tag "openModal('small', '#{product_path(@product)}', '#{@product.name}', { })" %>
+<% end %>

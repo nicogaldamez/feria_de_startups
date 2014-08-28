@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-  
+  before_filter :fetch_product, :only => [:index, :view]
   def index
-    @products = Product.list(params[:query]).limit(50)
+    
   end
   
   def new
@@ -18,6 +18,16 @@ class ProductsController < ApplicationController
     else
       raise(RequestExceptions::BadRequestError.new(@product.errors.full_messages))
     end
+  end
+  
+  def view
+    @product = Product.find(params[:id])
+    render :index
+  end
+  
+  def show
+    @product = Product.find(params[:id])
+    render 'show', layout: nil
   end
   
   def destroy
@@ -37,5 +47,9 @@ class ProductsController < ApplicationController
     
     def current_resource
       @product = @current_resource ||= Product.find(params[:id]) if params[:id]
+    end
+    
+    def fetch_product
+      @products = Product.list(params[:query]).limit(50)
     end
 end

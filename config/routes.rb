@@ -2,6 +2,9 @@ FeriaDeStartups::Application.routes.draw do
 
   resources :users, only: [:edit, :update]
   resources :products do
+    member do
+      get 'view'
+    end
     resources :votes, only: [] do
       collection do
         get 'vote'

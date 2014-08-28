@@ -16,7 +16,20 @@
       $('#error_explanation').append('<li>' + error[0] + '</li>')
     $('#error_explanation').append('</ul>')
     $('#error_explanation').show()
+
+@viewProductEvents = ->
+  $('.popup_like').bind 'ajax:success', (event, data, status, xhr)->
+    id = data.id
+    votes = data.votes_count
     
+    if $(event.target).html() == 'Me gusta'
+      $(event.target).html('Ya te gusta')
+    else
+      $(event.target).html('Me gusta')
+    
+    # Actualizo la cantidad de votos
+    $('#product_'+id+' .votes_count').html votes
+    $('#popup_product_'+id+' .votes_count').html votes    
     
 # EVENTOS LISTADO DE PRODUCTOS
 @productsListEvents = ->
@@ -40,6 +53,10 @@
       $('#product_'+id+' .initial').removeClass 'spin'
       return
     ), 100
+  
+  
+    
+    
 # ON READY
 $ ()->
   productsListEvents()

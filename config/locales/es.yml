@@ -2,6 +2,7 @@
 
 es:
   no_permission: "No tienes permiso para realizar la operación"
+  please_sign_in: "Por favor iniciá sesión"
   
   # COMMON
   number:

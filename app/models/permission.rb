@@ -2,7 +2,7 @@ class Permission
   
   def initialize(user)
     # Visitante
-    allow :products, [:index]
+    allow :products, [:index, :show, :view]
     allow :sessions, [:create, :destroy]
     allow :auth, [:failure]
 
