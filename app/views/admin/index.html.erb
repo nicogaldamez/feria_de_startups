@@ -6,7 +6,7 @@
     <ul>
       <% @today_products.each do |product| %>
         <% 
-        product_url = u product.url
+        product_url = u (view_product_url(product))
         text = u "#{product.name}: #{product.description}"
         via = 'feriadestartups'
         tweet_link = "https://twitter.com/intent/tweet?url=#{product_url}&text=#{text}&via=#{via}"
