@@ -29,7 +29,14 @@
     <ul>
       <% @today_votes.each do |product| %>
         <li> <b> <%= link_to product.name, product.url %> (<%= product.votes_count %>) </b> 
-          - <%= product.user_name %> </li>
+          - <%= product.user_name %> 
+          <br>
+          <% votes = product.votes.order(created_at: :desc) %>
+          <% product.votes.each do |vote| %>
+            <% user = vote.user %>
+            <%= image_tag user.portrait('mini'), class: 'avatar', title: user.name%>
+          <% end %>
+        </li>
       <% end %>
     </ul>
     <% if @today_votes.size == 0 %>
