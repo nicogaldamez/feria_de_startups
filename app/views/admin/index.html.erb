@@ -34,7 +34,9 @@
           <% votes = product.votes.order(created_at: :desc) %>
           <% product.votes.each do |vote| %>
             <% user = vote.user %>
-            <%= image_tag user.portrait('mini'), class: 'avatar', title: user.name%>
+            <%= link_to "http://twitter.com/#{user.username}" do %>
+              <%= image_tag user.portrait('mini'), class: 'avatar', title: user.name%>
+            <% end %>
           <% end %>
         </li>
       <% end %>
