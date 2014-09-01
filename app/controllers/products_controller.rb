@@ -50,6 +50,6 @@ class ProductsController < ApplicationController
     end
     
     def fetch_product
-      @products = Product.list(params[:query]).limit(50)
+      @products = Product.list(params[:query], 50)
     end
 end

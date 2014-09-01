@@ -11,15 +11,12 @@
       Feria de Startups 
     </h1>
     <blockquote>
-      <p> Hola <%= @user.name %>!, estos son los productos destacados del día: </p>
+      <p> Felicitaciones <%= @user.name %>!, algunos de tus productos han recibido votos hoy: </p>
 
       <ul style="margin-bottom: 20px;">
         <% @products.each do |product| %>
           <li style="list-style: none; margin-bottom: 10px;"> 
-            <b> 
-              <%= link_to product.name, view_product_url(product), style: "color: #428bca;text-decoration: none;" %>                 </b>: 
-            <%= "#{product.votes.count} votos" %> <br>
-            <span style="color: #777777"> <%= product.description %> </span>
+            <b> <%= product.name %> </b>: <%= "#{product.votes_count} votos" %> 
           </li>
         <% end %> 
       </ul>
@@ -39,11 +36,6 @@
       text-decoration: none;
       line-height: 1.428571429;
       border-radius: 4px;'%>
-      
-      <hr style="margin-top:30px">
-      <small style="color: #777777;display:block;text-align: center;">
-        Si no querés recibir más estos correos ingresa a la feria de startups y accede a la sección Mis Datos
-      </small>
     </footer>
   </body>
 </html>

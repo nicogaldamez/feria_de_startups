@@ -158,3 +158,38 @@ LOG:  autovacuum launcher shutting down
 LOG:  received smart shutdown request
 LOG:  shutting down
 LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-28 00:38:18 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+FATAL:  terminating connection due to administrator command
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-28 23:25:32 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started

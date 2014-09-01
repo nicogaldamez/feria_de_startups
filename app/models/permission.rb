@@ -22,7 +22,7 @@ class Permission
     
     # Administrador
     if user && user.admin
-      allow :admin, [:index, :send_daily]
+      allow :admin, [:index, :send_daily, :send_voted_products]
     end
   end
   

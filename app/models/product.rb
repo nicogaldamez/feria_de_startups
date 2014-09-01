@@ -49,7 +49,7 @@ class Product < ActiveRecord::Base
     self.user == user
   end
   
-  def self.list (query)
+  def self.list (query, limit = 50)
     if query.present?
       result = search(query)
     else
@@ -66,6 +66,8 @@ class Product < ActiveRecord::Base
                             products.url, products.description, products.user_id")
     result = result.group('products.id')
     result = result.order('2 DESC, 1 DESC, products.created_at DESC')
+    
+    result = result.limit(limit)
   end
   
   # Retorna los productos del usuario y cantidad de votos 

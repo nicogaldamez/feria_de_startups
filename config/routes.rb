@@ -17,6 +17,7 @@ FeriaDeStartups::Application.routes.draw do
 
   # Admin
   get '/admin/send_daily'
+  get '/admin/send_voted_products'
   get '/admin', to: 'admin#index'
   
   root 'products#index'

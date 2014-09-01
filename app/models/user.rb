@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
   has_many :products, :class_name => "Product", :foreign_key => "product_id", dependent: :destroy
   has_many :votes, :class_name => "Vote", :foreign_key => "user_id", dependent: :destroy
   
-  scope :to_notify, -> { where('receive_notifications and email is not null') }
+  scope :want_to_receive_votes, -> { where('receive_notifications and email is not null') }
+  scope :want_to_receive_daily, -> { where('receive_daily and email is not null') }
   scope :today_users, -> { where('created_at::date > ?', Time.now - 24.hour) }
   
   def self.from_omniauth(auth)
@@ -84,10 +85,18 @@ class User < ActiveRecord::Base
     !vote.empty?
   end
   
-  def self.send_daily_email
-    users = User.to_notify
+  def self.send_voted_products
+    users = User.want_to_receive_votes
     users.each do |user|
       products = Product.voted(user, Time.now - 24.hour)
+      UserMailer.voted_products(user, products).deliver unless products.empty? or user.email.nil?
+    end
+  end
+  
+  def self.send_daily
+    users = User.want_to_receive_daily
+    users.each do |user|
+      products = Product.list(nil, 10)
       UserMailer.daily(user, products).deliver unless products.empty? or user.email.nil?
     end
   end
