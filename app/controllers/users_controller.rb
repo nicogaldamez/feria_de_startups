@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:email, :receive_notifications)
+      params.require(:user).permit(:email, :receive_notifications, :receive_daily)
     end  
     
     def current_resource
