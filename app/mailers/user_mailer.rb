@@ -14,6 +14,6 @@ class UserMailer < ActionMailer::Base
     @user = user
     @products = products
     
-    mail to: user.email, subject: 'Lo destacado del día'
+    mail to: user.email, subject: 'Lo destacado del momento'
   end
 end
