@@ -52,7 +52,10 @@
     <h3> Usuarios </h3>
     <ul>
       <% @users.each do |user| %>
-        <li> <b> <%= user.name %> </b> <span class="text-muted"> <%= user.created_at %> </span> </li>
+        <li> 
+          <b> <%= link_to user.name, "http://twitter.com/#{user.username}" %> </b> 
+          <span class="text-muted"> <%= user.created_at %> </span> 
+        </li>
       <% end %>
     </ul>
   </div>
