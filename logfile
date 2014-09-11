@@ -209,3 +209,10 @@ HINT:  Is another postmaster (PID 868) running in data directory "/usr/local/var
 LOG:  database system was shut down at 2014-09-10 12:17:29 ART
 LOG:  autovacuum launcher started
 LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-09-10 23:23:45 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started

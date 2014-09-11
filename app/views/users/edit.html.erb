@@ -16,7 +16,7 @@
         <%= f.check_box :receive_notifications %> Recibir notificaciones si mis productos reciben votos
       </label>
       
-      <% if !@user.email.empty? %>
+      <% if @user.email.nil? or !@user.email.empty? %>
         <label>
           <%= f.check_box :receive_daily %> Recibir los productos más votados
         </label>
