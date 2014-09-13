@@ -6,5 +6,17 @@ module ApplicationHelper
     colors[rand(colors.size)]
   end
   
+  def nav_link(link_text, link_path)
+    class_name = current_page?(link_path) ? 'active' : ''
+
+    content_tag(:li, :class => class_name) do
+      link_to link_text, link_path
+    end
+  end
+  
+  def date_to_text(date)
+    date.strftime("%d/%m/%Y") unless date.nil?
+  end
+  
 end
  

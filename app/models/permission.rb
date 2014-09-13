@@ -18,11 +18,13 @@ class Permission
       allow :users, [:edit, :update] do |u|
         u.id == user.id
       end
+      
+      allow_param :topic, [:name, :url, :description]
     end
     
     # Administrador
     if user && user.admin
-      allow :admin, [:index, :send_daily, :send_voted_products]
+      allow_all
     end
   end
   

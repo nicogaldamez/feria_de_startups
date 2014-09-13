@@ -247,3 +247,7 @@ STATEMENT:  SELECT  (count(votes) / (DATE_PART('day', current_date - products.cr
 	                            products.id, products.name, products.created_at,
 	                            products.url, products.description, products.user_id,
 	                            products.votes_count FROM "products" LEFT JOIN votes ON votes.product_id = products.id  ORDER BY "products"."created_at" DESC LIMIT 20 OFFSET 0
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "products".* FROM "products"  WHERE "products"."id" = $1 LIMIT 1
+ERROR:  column products.product_id does not exist at character 40
+STATEMENT:  SELECT COUNT(*) FROM "products"  WHERE "products"."product_id" = $1

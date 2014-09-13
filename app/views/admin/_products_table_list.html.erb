@@ -1,0 +1,29 @@
+<div class="row table-responsive">
+  <table class="table table-bordered table-bordered">
+    <thead>
+      <tr class="header-highlight">
+        <th> Nombre </th>
+        <th> Fecha </th>
+        <th> Usuario - Twitter </th>
+        <th> Votos </th>
+        <th> Descripción </th>
+        <th> Publicado </th>
+        <th class='actions'> Acciones </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @products.empty? %>
+        <tr> <td colspan='6' class="text-center"> No hay Productos </td> </tr>
+      <% else %>
+        <%= render partial: 'product', collection: @products %>
+    <% end %>
+    
+    </tbody>
+  </table>
+</div>
+
+<div class="row margin-top-10">
+	<div  id="infinite-scrolling" class="col-md-9">
+    <%= will_paginate @products, :params => {:controller => 'admin', :action => "products"} %>
+  </div>
+</div>

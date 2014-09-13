@@ -1,0 +1,14 @@
+<%= content_tag_for(:tr, user) do %>
+  <td><%= user.name %></td>
+  <td><%= date_to_text(user.created_at) %></td>
+  <td>
+      <%= twitter_profile_link(user.username) %>
+  </td>
+  <td><%= user.email %></td>
+  <td><%= user.votes.size %></td>
+  <td><%= user.products.size %></td>
+  
+  <td class="text-right" >
+    <%= link_to 'Eliminar', user, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Esta Seguro?' } %>
+  </td>
+<% end %>

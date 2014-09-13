@@ -16,18 +16,27 @@
 #
 
 class User < ActiveRecord::Base
-  before_save { self.email = email.downcase unless email.nil? }
+  #--------------------------------------------- RELATION
+  has_many :products, :class_name => "Product", :foreign_key => "user_id", dependent: :destroy
+  has_many :votes, :class_name => "Vote", :foreign_key => "user_id", dependent: :destroy
   
+  #--------------------------------------------- MISC  
+  
+  #--------------------------------------------- VALIDATION  
   validates :name,  :presence => true, :uniqueness => true
   validates :username,  :presence => true, :uniqueness => true
   validates :uid,  :presence => true, :uniqueness => true
   
-  has_many :products, :class_name => "Product", :foreign_key => "product_id", dependent: :destroy
-  has_many :votes, :class_name => "Vote", :foreign_key => "user_id", dependent: :destroy
-  
+  #--------------------------------------------- CALLBACK
+  before_save { self.email = email.downcase unless email.nil? }
+
+  #--------------------------------------------- SCOPES  
   scope :want_to_receive_votes, -> { where('receive_notifications and email is not null') }
   scope :want_to_receive_daily, -> { where('receive_daily and email is not null') }
   scope :today_users, -> { where('created_at::date > ?', Time.now - 24.hour) }
+  scope :recents, -> { order(created_at: :desc) }
+  
+  #--------------------------------------------- METHODS
   
   def self.from_omniauth(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)

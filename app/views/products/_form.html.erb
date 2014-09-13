@@ -1,6 +1,6 @@
-<%= form_for @product, id: 'newproduct_form', remote: true, class: 'new_product',
+<%= form_for @product, id: 'newproduct_form', remote: true,
       html: {role: :form, 'data-model' => 'product', autocomplete: 'off'} do |f| %>
-  
+        
   <div id="error_explanation" class="errors"> </div>
   
   <div class="row">
@@ -20,6 +20,23 @@
     <%= f.text_area :description, placeholder: "Una pequeña descripción del producto", required: true, 
       maxlength: 120, class: "form-control" %>
   </div>
+  
+  <% if allow_param? :product, :mentions %>
+    <div class="row">
+      <div class="form-group col-md-8">
+        <%= f.text_field :mentions, placeholder: "Ej: @nicogaldamez @veroartola", 
+            class: "form-control" %>
+      </div>
+    </div>
+  <% end %>
+  
+  <% if allow_param? :product, :published %>
+    <div class="form-group checkbox">
+      <label>
+        <%= f.check_box :published, { checked: false || (@product.published && @product.persisted?) } %> Publicar
+      </label>
+    </div>
+  <% end %>
   
 	<div class="submit">
 		<%= f.submit "Guardar", class: 'btn btn-success' %>			

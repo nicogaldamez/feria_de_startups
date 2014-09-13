@@ -1,0 +1,28 @@
+<%= content_tag_for(:tr, product) do %>
+  <td><%= product.name %></td>
+  <td><%= date_to_text(product.created_at) %></td>
+  <td>
+      <%= product.user.name %> - 
+      <%=  twitter_profile_link(product.user.username) %>
+  </td>
+  <td><%= product.votes_count %></td>
+  <td title="<%= product.description %>"> 
+    <%= truncate(product.description, length: 50, omission: '...') %>
+  </td>
+  <td>
+    <label class="checkbox_label">
+      <%= check_box_tag(:published, product.id, product.published, id: dom_id(product), 
+            class: 'publish_product_check') %>
+      Publicar
+    </label>
+  </td>
+  
+
+  <td class="text-right" >
+    <%= tweet_link(product, 'btn btn-sm btn-info tweet-product') %>
+    <%= link_to "Editar", edit_product_path(product), class: "btn btn-sm btn-warning", id: "btn_edit_product",
+              data: { target: "#modal", modalsize: 'small', modaltitle: 'Editar un producto' } %>
+    <%= link_to 'Eliminar', product, class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: 'Esta Seguro?' } %>
+
+  </td>
+<% end %>

@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2> 
+        Productos 
+        <%= link_to "Agregar un producto", new_product_path, class: "btn btn-md btn-primary", id: "btn_new_product",
+                  data: { target: "#modal", modalsize: 'small', modaltitle: 'Agregar un producto' } %>
+      </h2>
+    </div>
+  </div>
+
+  <div id="admin-products-container">
+    <%= render 'products_table_list' %>
+  </div>
+</div>
+
+<%- content_for :modals do %>
+  <div class="modal fade" id='user-modal' tabindex="-1" role="dialog" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+$(function(){
+  var products_view = new APP_ADMIN.products();
+  products_view.render();
+});
+</script>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

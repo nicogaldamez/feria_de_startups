@@ -1,63 +1,68 @@
-<div class="container">
+<div class="container admin_panel">
   <h1> Panel de Administración </h1>
 
   <div class="col-md-6">
-    <h3> Productos de las últimas 24 horas </h3>
-    <ul>
-      <% @today_products.each do |product| %>
-        <% 
-        product_url = u (view_product_url(product))
-        text = u "#{product.name}: #{product.description}"
-        via = 'feriadestartups'
-        tweet_link = "https://twitter.com/intent/tweet?url=#{product_url}&text=#{text}&via=#{via}"
-         %>
-        
-        <li> 
-          <b> <%= link_to product.name, product.url %> </b> - <%= product.user.name %> 
-          | <%= link_to "Tweet", tweet_link, class: 'tweet_link' %>
-        </li>
-      <% end %>
-    </ul>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    <% if @today_products.size == 0 %>
-      <small class="text-muted"> No hay productos </small>
-    <% end %>
-  </div>
-  
-  <div class="col-md-6">
-    <h3> Votos de las de las últimas 24 horas </h3>
-    <ul>
-      <% @today_votes.each do |product| %>
-        <li> <b> <%= link_to product.name, product.url %> (<%= product.votes_count %>) </b> 
-          - <%= product.user_name %> 
-          <br>
-          <% votes = product.votes.order(created_at: :desc) %>
-          <% product.votes.each do |vote| %>
-            <% user = vote.user %>
-            <%= link_to "http://twitter.com/#{user.username}", target: '_blank' do %>
-              <%= image_tag user.portrait('mini'), class: 'avatar', title: user.name%>
-            <% end %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Últimos Productos</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <% @products.each do |product| %>
+            <li> 
+              <b> <%= link_to product.name, product.url %> </b> - 
+              <%= product.user.name %> -
+              <%= date_to_text(product.created_at) %>
+              | <%= tweet_link(product, 'tweet-product') %>
+            </li>
           <% end %>
-        </li>
-      <% end %>
-    </ul>
-    <% if @today_votes.size == 0 %>
-      <small class="text-muted"> No hubo votos hoy </small>
-    <% end %>
-    <%= link_to "Enviar mail con votos", admin_send_voted_products_path, class: 'btn btn-primary', remote: true %>
-    <%= link_to "Enviar daily", admin_send_daily_path, class: 'btn btn-success', remote: true %>
+        </ul>
+        <%= link_to "Ver todos", products_admin_index_path %>
+      </div>
+      <div class="panel-footer"> Cantidad total de productos: <b> <%= @products_count %> </b> </div>
+    </div>
   </div>
   
   <div class="col-md-6">
-    <h3> Usuarios </h3>
-    <ul>
-      <% @users.each do |user| %>
-        <li> 
-          <b> <%= link_to user.name, "http://twitter.com/#{user.username}" %> </b> 
-          <span class="text-muted"> <%= user.created_at %> </span> 
-        </li>
-      <% end %>
-    </ul>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Últimos Usuarios </h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <% @users.each do |user| %>
+            <li> 
+              <b> <%= twitter_profile_link(user.username) %> </b> - 
+              <%= date_to_text(user.created_at) %>
+            </li>
+          <% end %>
+        </ul>
+        <%= link_to "Ver todos", products_admin_index_path %>
+      </div>
+      <div class="panel-footer"> Cantidad total de usuarios: <b> <%= @users_count %> </b> </div>
+    </div>
   </div>
-
+  
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Últimos Votos </h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <% @votes.each do |vote| %>
+            <li> 
+              <%= vote.user.name %>
+              votó
+              <%= link_to vote.product.name, vote.product.url %> 
+              -
+              <%= date_to_text(vote.created_at) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

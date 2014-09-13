@@ -12,7 +12,10 @@ class ProductsController < ApplicationController
   # --------------------------------------------
   def new
     @product = Product.new
-    render 'new', layout: nil
+    
+    respond_to do |format|
+      format.html { render partial: 'form' }
+    end
   end
   
   # --------------------------------------------
@@ -25,6 +28,29 @@ class ProductsController < ApplicationController
           layout: false, status: :created
     else
       raise(RequestExceptions::BadRequestError.new(@product.errors.full_messages))
+    end
+  end
+  
+  # --------------------------------------------
+  def edit
+    @product = Product.find(params[:id])
+    
+    respond_to do |format|
+      format.html { render partial: 'form' }
+    end
+  end
+  
+  # --------------------------------------------
+  def update
+    @product = Product.find(params[:id])
+    
+    respond_to do |format|
+      if @product.update(params[:product])
+        format.js 
+      else
+        raise(RequestExceptions::BadRequestError.new(@product.errors.full_messages))  
+      end
+      
     end
   end
   
@@ -43,17 +69,16 @@ class ProductsController < ApplicationController
   # --------------------------------------------
   def destroy
     product = Product.find(params[:id])
-    if product.is_owner?(current_user)
-      product.destroy
-    end
-    redirect_to root_url
+    product.destroy
+    
+    redirect_to :back
   end
   
   private
     # --------------------------------------------
     def product_params
       params.require(:product).permit(:name, :url, :logo,
-                                   :description, :video, :description)
+                                   :description, :video)
     end  
     
     # --------------------------------------------

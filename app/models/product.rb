@@ -35,6 +35,7 @@ class Product < ActiveRecord::Base
 
   #--------------------------------------------- SCOPES
   scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
+  scope :recents, -> { includes(:user).order(created_at: :desc) }
   
   #--------------------------------------------- METHODS
   
@@ -66,6 +67,8 @@ class Product < ActiveRecord::Base
                             products.votes_count")
     result = result.group('products.id')
     result = result.order('2 DESC, 1 DESC, products.created_at DESC')
+    result = result.includes(:user)
+    result = result.where(published: true)
   end
   
   # Retorna los productos del usuario y cantidad de votos 

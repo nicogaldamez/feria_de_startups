@@ -1,3 +1,17 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+@APP_ADMIN= {}
+ 
+@APP_ADMIN.products = ->
+  render: ->
+    $(".publish_product_check").bind "change", ->
+      $.ajax(
+        url: "/admin/" + @value + "/toggle_published.json"
+        type: "PUT"
+        data:
+          product:
+            published: @checked
+      ).fail((data) ->
+        alert 'falló'
+      ).done((data) ->
+        show_alert('Actualizado', 'success')
+      )
+      return 

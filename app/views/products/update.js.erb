@@ -1,0 +1,8 @@
+// SOLO EL ADMINISTRADOR PUEDE ACTUALIZAR UN PRODUCTO
+$("form.edit_product")[0].reset();
+
+$('form.edit_product').closest('.modal').modal('hide');
+
+$('#admin-products-container table tbody').html('');
+
+$.getScript('/admin/products');

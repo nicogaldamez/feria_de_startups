@@ -4,13 +4,19 @@
     $("form.new_product")[0].reset()
     $('form.new_product').closest('.modal').modal('hide')
     $('#error_explanation').hide()
-    $('#products .list').prepend(data)
-    productsListEvents()
-
+    
+    if $('#admin-products-container') is undefined
+      # Estoy en la pantalla de productos principal
+      $('#products .list').prepend(data)
+      productsListEvents()
+    else
+      $('#admin-products-container table tbody').html('');
+      $.getScript('/admin/products');
+  
   $("form.new_product").on "ajax:error", (event, xhr, status, error) ->
     errors = jQuery.parseJSON(xhr.responseText)
     $('#error_explanation').empty()
-    
+  
     $('#error_explanation').append('<ul>')
     $.each errors, (field, error) ->
       $('#error_explanation').append('<li>' + error[0] + '</li>')
