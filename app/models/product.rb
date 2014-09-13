@@ -33,11 +33,7 @@ class Product < ActiveRecord::Base
   
   def to_builder
     Jbuilder.new do |product|
-      product.id id
-      product.name name
-      product.description description
-      product.url url
-      product.votes_count votes.count 
+      product.(self, :id, :name, :description, :url, :votes_count)
     end
   end
   
@@ -63,7 +59,8 @@ class Product < ActiveRecord::Base
                             , 
                             (products.created_at > now() - interval '24 hour'),
                             products.id, products.name, products.created_at,
-                            products.url, products.description, products.user_id")
+                            products.url, products.description, products.user_id,
+                            products.votes_count")
     result = result.group('products.id')
     result = result.order('2 DESC, 1 DESC, products.created_at DESC')
     

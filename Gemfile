@@ -8,10 +8,12 @@ gem 'omniauth-twitter'
 gem 'bootstrap-sass'
 gem 'pg_search'
 gem 'google-analytics-rails'
+gem 'counter_culture', '~> 0.1.23'
 
 group :development do
   gem 'annotate', '2.5.0'
   gem "letter_opener"
+  gem "pry"
 end
 
 group :test do
