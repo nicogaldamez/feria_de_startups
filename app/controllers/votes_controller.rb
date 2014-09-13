@@ -11,7 +11,7 @@ class VotesController < ApplicationController
     else
       vote.destroy
     end
-    
+    @product.reload
     respond_to do |format|
       format.json { render json: @product.to_builder.target! }
     end

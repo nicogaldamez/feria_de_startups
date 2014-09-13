@@ -4,13 +4,19 @@
     $("form.new_product")[0].reset()
     $('form.new_product').closest('.modal').modal('hide')
     $('#error_explanation').hide()
-    $('#products .list').prepend(data)
-    productsListEvents()
-
+    
+    if $('#admin-products-container').length == 0
+      # Estoy en la pantalla de productos principal
+      $('#products .list').prepend(data)
+      productsListEvents()
+    else
+      $('#admin-products-container table tbody').html('');
+      $.getScript('/admin/products');
+  
   $("form.new_product").on "ajax:error", (event, xhr, status, error) ->
     errors = jQuery.parseJSON(xhr.responseText)
     $('#error_explanation').empty()
-    
+  
     $('#error_explanation').append('<ul>')
     $.each errors, (field, error) ->
       $('#error_explanation').append('<li>' + error[0] + '</li>')
@@ -60,5 +66,14 @@
 # ON READY
 $ ()->
   productsListEvents()
+  
+  if $('#infinite-scrolling').size() > 0
+    $(window).on 'scroll', ->
+      more_products_url = $('.pagination a.next_page').attr('href')
+      if more_products_url  && $(window).scrollTop() > $(document).height() - $(window).height() - 60
+        $('.pagination').html('<div id="loading_products"> Cargando más productos... </div>')
+        $.getScript more_products_url 
+      return
+    return
   
     

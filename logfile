@@ -216,3 +216,38 @@ LOG:  database system is shut down
 LOG:  database system was shut down at 2014-09-10 23:23:45 ART
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-09-11 23:03:31 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 9
+STATEMENT:  SELECT  "products".*, ((ts_rank((to_tsvector('simple', unaccent(coalesce("products"."name"::text, ''))) || to_tsvector('simple', unaccent(coalesce("products"."description"::text, '')))), (''), 0))) AS pg_search_rank, (count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
+	                            + 14400 - DATE_PART('day', current_date - products.created_at)
+	                            , 
+	                            (products.created_at > now() - interval '24 hour'),
+	                            products.id, products.name, products.created_at,
+	                            products.url, products.description, products.user_id,
+	                            products.votes_count FROM "products" LEFT JOIN votes ON votes.product_id = products.id WHERE (((to_tsvector('simple', unaccent(coalesce("products"."name"::text, ''))) || to_tsvector('simple', unaccent(coalesce("products"."description"::text, '')))) @@ ('')))  ORDER BY pg_search_rank DESC, "products"."id" ASC, "products"."created_at" DESC LIMIT 20 OFFSET 0
+ERROR:  column "products.created_at" must appear in the GROUP BY clause or be used in an aggregate function at character 58
+STATEMENT:  SELECT  (count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
+	                            + 14400 - DATE_PART('day', current_date - products.created_at)
+	                            , 
+	                            (products.created_at > now() - interval '24 hour'),
+	                            products.id, products.name, products.created_at,
+	                            products.url, products.description, products.user_id,
+	                            products.votes_count FROM "products" LEFT JOIN votes ON votes.product_id = products.id  ORDER BY "products"."created_at" DESC LIMIT 20 OFFSET 0
+ERROR:  column "products.created_at" must appear in the GROUP BY clause or be used in an aggregate function at character 58
+STATEMENT:  SELECT  (count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
+	                            + 14400 - DATE_PART('day', current_date - products.created_at)
+	                            , 
+	                            (products.created_at > now() - interval '24 hour'),
+	                            products.id, products.name, products.created_at,
+	                            products.url, products.description, products.user_id,
+	                            products.votes_count FROM "products" LEFT JOIN votes ON votes.product_id = products.id  ORDER BY "products"."created_at" DESC LIMIT 20 OFFSET 0
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "products".* FROM "products"  WHERE "products"."id" = $1 LIMIT 1
+ERROR:  column products.product_id does not exist at character 40
+STATEMENT:  SELECT COUNT(*) FROM "products"  WHERE "products"."product_id" = $1

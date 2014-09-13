@@ -98,12 +98,15 @@
   }
 }
 
-#end_of_list {
-  margin: 20px 0px;
+#loading_products {
+  position: fixed;
+  bottom: 0;
   border-top: 1px solid #eee;
   padding: 20px 0px;
   text-align: center;
   color: #777;
+  width: 100%;
+  background: white;
 }
 
 /* ---- SHOW ---- */

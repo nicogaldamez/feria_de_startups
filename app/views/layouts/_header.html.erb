@@ -11,12 +11,13 @@
   <% if signed_in? %>
   
     <div id="user_nav" class="dropdown">
+      <%= link_to "Blog", "http://medium.com/@feriadestartups", target: '_blank', id: 'blog_link' %>
       <a href="#" class="user_name dropdown-toggle" data-toggle="dropdown">
         <%= image_tag current_user.portrait('mini'), class: 'avatar'%>
         <%= current_user.name %> <b class="caret"></b>
       </a>
       <ul class="dropdown-menu" role="menu">	
-        <li> <%= link_to "Administración", admin_path if allow?(:admin, :index) %>  </li>
+        <li> <%= link_to "Administración", admin_index_path if allow?(:admin, :index) %>  </li>
         <li> <%= link_to "Mis datos", edit_user_path(current_user),  
             data: { target: "#modal", modalsize: 'small', modaltitle: 'Mis Datos' } %> </li>				
         <li> <%= link_to "Cerrar sesión", signout_path, method: "delete" %> </li>				
@@ -26,6 +27,7 @@
   <% else %>
   
     <div id="user_nav">
+      <%= link_to "Blog", "http://medium.com/@feriadestartups", target: '_blank', id: 'blog_link' %> | 
       <%= link_to "Iniciar Sesión", "/auth/twitter"%>
     </div>
     

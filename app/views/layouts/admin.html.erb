@@ -11,9 +11,9 @@
   <%= analytics_init if Rails.env.production? %>
   
 </head>
-<body>
+<body id="admin_layout">
   
-  <%= render 'layouts/header' %>
+  <%= render 'layouts/admin_header' %>
 
   <div id="main_container">
     <%= render 'layouts/alerts' %>

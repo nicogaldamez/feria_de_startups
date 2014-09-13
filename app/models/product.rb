@@ -14,30 +14,37 @@
 #
 
 class Product < ActiveRecord::Base
-  
+  #--------------------------------------------- RELATION
+  belongs_to :user, :class_name => "User", :foreign_key => "user_id"
+  has_many :votes, :class_name => "Vote", :foreign_key => "product_id", dependent: :destroy
+
+  #--------------------------------------------- MISC  
+  include PgSearch
+  pg_search_scope :search, against: [:name, :description],
+                  :ignoring => :accents,
+                  :using => { :tsearch => {:prefix => true} }
+                  
+  #--------------------------------------------- VALIDATION
   validates :name,  :presence => true
   validates :description,  :presence => true
   validates :url,  :presence => true
   validates :user_id,  :presence => true
   validates :name, uniqueness: {scope: :url, message: ' y la url ya existen'}
-  
-  belongs_to :user, :class_name => "User", :foreign_key => "user_id"
-  has_many :votes, :class_name => "Vote", :foreign_key => "product_id", dependent: :destroy
-  
+
+  #--------------------------------------------- CALLBACK
+  before_create :mark_trending
+  before_save :mark_trending
+
+  #--------------------------------------------- SCOPES
   scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
+  scope :recents, -> { includes(:user).order(created_at: :desc) }
   
-  include PgSearch
-  pg_search_scope :search, against: [:name, :description],
-                  :ignoring => :accents,
-                  :using => { :tsearch => {:prefix => true} }
+  #--------------------------------------------- METHODS
   
+    
   def to_builder
     Jbuilder.new do |product|
-      product.id id
-      product.name name
-      product.description description
-      product.url url
-      product.votes_count votes.count 
+      product.(self, :id, :name, :description, :url, :votes_count)
     end
   end
   
@@ -49,25 +56,11 @@ class Product < ActiveRecord::Base
     self.user == user
   end
   
-  def self.list (query, limit = 50)
-    if query.present?
-      result = search(query)
-    else
-      result = all
-    end
-    
-    # Los productos se ordenan por VOTOS - DIAS_PUBLICADO + 1
-    result = result.joins("LEFT JOIN votes ON votes.product_id = products.id")
-    result = result.select("(count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
-                            + 14400 - DATE_PART('day', current_date - products.created_at)
-                            , 
-                            (products.created_at > now() - interval '24 hour'),
-                            products.id, products.name, products.created_at,
-                            products.url, products.description, products.user_id")
-    result = result.group('products.id')
-    result = result.order('2 DESC, 1 DESC, products.created_at DESC')
-    
-    result = result.limit(limit)
+  def self.list (query)
+    result = (query.present?) ? search(query) : all
+    result = result.includes(:user)
+    result = result.where(published: true)
+    result = result.order(trending_until: :desc)
   end
   
   # Retorna los productos del usuario y cantidad de votos 
@@ -87,5 +80,14 @@ class Product < ActiveRecord::Base
     result = result.group('products.id, users.id')
     result = result.order('1 desc')
     result
+  end
+  
+  
+  private
+  
+  def mark_trending
+    if published
+      self.trending_until = 24.hours.from_now
+    end    
   end
 end

@@ -1,0 +1,30 @@
+<div class="row table-responsive">
+  <table class="table table-bordered table-bordered">
+    <thead>
+      <tr class="header-highlight">
+        <th> # </th>
+        <th> Nombre </th>
+        <th> Fecha creación </th>
+        <th> Twitter </th>
+        <th> Email </th>
+        <th> Votos </th>
+        <th> Productos </th>
+        <th class='actions'> Acciones </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @users.empty? %>
+        <tr> <td colspan='6' class="text-center"> No hay Usuarios </td> </tr>
+      <% else %>
+        <%= render @users %>
+    <% end %>
+    
+    </tbody>
+  </table>
+</div>
+
+<div class="row margin-top-10">
+	<div  id="infinite-scrolling" class="col-md-9">
+    <%= will_paginate @users, :params => {:controller => 'users', :action => "index"} %>
+  </div>
+</div>

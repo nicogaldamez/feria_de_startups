@@ -1,6 +1,6 @@
 FeriaDeStartups::Application.routes.draw do
 
-  resources :users, only: [:edit, :update]
+  resources :users
   resources :products do
     member do
       get 'view'
@@ -18,7 +18,14 @@ FeriaDeStartups::Application.routes.draw do
   # Admin
   get '/admin/send_daily'
   get '/admin/send_voted_products'
-  get '/admin', to: 'admin#index'
+  resources :admin, only: [:index] do
+    member do
+      put 'toggle_published'
+    end
+    collection do
+      get 'products'
+    end
+  end
   
   root 'products#index'
   

@@ -1,0 +1,12 @@
+$('#loading_products').remove();
+$('#admin-products-container table tbody').append('<%= j render partial: "admin/product", collection: @products %>');
+<% if @products.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @products %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>
+
+initialize_modals();
+var products_view = new APP_ADMIN.products();
+products_view.render();

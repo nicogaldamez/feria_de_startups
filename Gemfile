@@ -8,10 +8,12 @@ gem 'omniauth-twitter'
 gem 'bootstrap-sass'
 gem 'pg_search'
 gem 'google-analytics-rails'
+gem 'counter_culture', '~> 0.1.23'
 
 group :development do
   gem 'annotate', '2.5.0'
   gem "letter_opener"
+  gem "pry"
 end
 
 group :test do
@@ -29,6 +31,10 @@ gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.0.4'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
+
+gem 'will_paginate', '~> 3.0'
+
+gem 'will_paginate-bootstrap'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false

@@ -1,0 +1,14 @@
+$('#loading_products').remove();
+$('#products .list').append('<%= j render @products %>');
+<% if @products.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @products %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>
+
+var products_view = new APP_ADMIN.products();
+products_view.render();
+
+initialize_modals();
+productsListEvents();

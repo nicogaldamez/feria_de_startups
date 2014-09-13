@@ -1,6 +1,13 @@
 String::capitalize = ->
   @charAt(0).toUpperCase() + @slice(1)
   
+@show_alert = (text, type) ->
+  content = '<button type="button" class="close" data-dismiss="alert"> '
+  content += '<span aria-hidden="true">&times;</span>'
+  content += '<span class="sr-only">Cerrar</span></button>' + text
+  content = '<div class="alert-dismissible alert alert-'+type+'"> ' + content + '</div>'
+  $('#alerts').html(content) 
+  
 @openModal = (size, url, title, options={})->  
   modal = "#" + size + '_modal'
   
@@ -27,10 +34,8 @@ String::capitalize = ->
   if (!(/^http:\/\//.test(string)) && (!(/^https:\/\//.test(string))))
       string = "http://" + string
   input.value = string
-  
-$ ()->
-  
-  # MIS DATOS
+
+@initialize_modals = ->
   $("a[data-target=#modal]").click (ev) ->
     ev.preventDefault()
     target = $(this).attr("href")
@@ -43,4 +48,8 @@ $ ()->
     openModal(size, target, title, options)
     
     return
+  
+$ ()->
+  
+  initialize_modals()
   

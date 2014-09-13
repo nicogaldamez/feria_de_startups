@@ -2,11 +2,22 @@
 
 class UsersController < ApplicationController
   
+  # -------------------------------------------------
+  def index
+    @users = User.all.paginate(page: params[:page], per_page: 20)
+    respond_to do |format|
+      format.js 
+      format.html { render 'index', layout: 'admin'}      
+    end
+  end
+  
+  # -------------------------------------------------
   def edit
     @user = User.find(params[:id])
     render 'edit', layout: nil
   end
   
+  # -------------------------------------------------
   def update
     user = current_user
     if user.update_attributes(user_params)
