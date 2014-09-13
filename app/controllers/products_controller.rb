@@ -77,8 +77,11 @@ class ProductsController < ApplicationController
   private
     # --------------------------------------------
     def product_params
-      params.require(:product).permit(:name, :url, :logo,
-                                   :description, :video)
+      if current_user.is_admin?
+        params.require(:product).permit(:name, :url, :description, :published, :mentions)
+      else
+        params.require(:product).permit(:name, :url, :description)
+      end
     end  
     
     # --------------------------------------------

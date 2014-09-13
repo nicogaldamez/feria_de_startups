@@ -5,7 +5,7 @@
     $('form.new_product').closest('.modal').modal('hide')
     $('#error_explanation').hide()
     
-    if $('#admin-products-container') is undefined
+    if $('#admin-products-container').length == 0
       # Estoy en la pantalla de productos principal
       $('#products .list').prepend(data)
       productsListEvents()

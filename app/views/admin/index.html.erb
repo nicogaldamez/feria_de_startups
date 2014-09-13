@@ -1,5 +1,5 @@
 <div class="container admin_panel">
-  <h1> Panel de Administración </h1>
+  <h2> Panel de Administración </h2>
 
   <div class="col-md-6">
     <div class="panel panel-default">
@@ -52,7 +52,7 @@
         <ul>
           <% @votes.each do |vote| %>
             <li> 
-              <%= vote.user.name %>
+              <b> <%= vote.user.name %> </b>
               votó
               <%= link_to vote.product.name, vote.product.url %> 
               -
@@ -60,6 +60,7 @@
             </li>
           <% end %>
         </ul>
+        <%= link_to "Ver usuarios", users_path %>
       </div>
     </div>
   </div>

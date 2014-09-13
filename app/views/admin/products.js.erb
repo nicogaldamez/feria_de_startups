@@ -8,3 +8,5 @@ $('#admin-products-container table tbody').append('<%= j render partial: "admin/
 <% end %>
 
 initialize_modals();
+var products_view = new APP_ADMIN.products();
+products_view.render();

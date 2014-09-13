@@ -32,6 +32,8 @@ class Product < ActiveRecord::Base
   validates :name, uniqueness: {scope: :url, message: ' y la url ya existen'}
 
   #--------------------------------------------- CALLBACK
+  before_create :mark_trending
+  before_save :mark_trending
 
   #--------------------------------------------- SCOPES
   scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
@@ -56,19 +58,9 @@ class Product < ActiveRecord::Base
   
   def self.list (query)
     result = (query.present?) ? search(query) : all
-    
-    result = result.joins("LEFT JOIN votes ON votes.product_id = products.id")
-    result = result.select("(count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
-                            + 14400 - DATE_PART('day', current_date - products.created_at)
-                            , 
-                            (products.created_at > now() - interval '24 hour'),
-                            products.id, products.name, products.created_at,
-                            products.url, products.description, products.user_id,
-                            products.votes_count")
-    result = result.group('products.id')
-    result = result.order('2 DESC, 1 DESC, products.created_at DESC')
     result = result.includes(:user)
     result = result.where(published: true)
+    result = result.order(trending_until: :desc)
   end
   
   # Retorna los productos del usuario y cantidad de votos 
@@ -88,5 +80,14 @@ class Product < ActiveRecord::Base
     result = result.group('products.id, users.id')
     result = result.order('1 desc')
     result
+  end
+  
+  
+  private
+  
+  def mark_trending
+    if published
+      self.trending_until = 24.hours.from_now
+    end    
   end
 end

@@ -53,6 +53,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def is_admin?
+    self.admin
+  end
+  
   def portrait(size)
 
       # Twitter

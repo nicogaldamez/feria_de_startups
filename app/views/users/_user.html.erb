@@ -1,4 +1,5 @@
 <%= content_tag_for(:tr, user) do %>
+  <td><%= user.id %></td>
   <td><%= user.name %></td>
   <td><%= date_to_text(user.created_at) %></td>
   <td>

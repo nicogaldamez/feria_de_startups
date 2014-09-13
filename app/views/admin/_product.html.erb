@@ -1,4 +1,5 @@
 <%= content_tag_for(:tr, product) do %>
+  <td><%= product.id %></td>
   <td><%= product.name %></td>
   <td><%= date_to_text(product.created_at) %></td>
   <td>
@@ -7,7 +8,12 @@
   </td>
   <td><%= product.votes_count %></td>
   <td title="<%= product.description %>"> 
-    <%= truncate(product.description, length: 50, omission: '...') %>
+    <%= truncate(product.description, length: 40, omission: '...') %>
+  </td>
+  <td>
+    <% if !product.trending_until.nil? && product.trending_until > Time.now %>
+      <%= distance_of_time_in_words(Time.now, product.trending_until).humanize  %>
+    <% end %>
   </td>
   <td>
     <label class="checkbox_label">

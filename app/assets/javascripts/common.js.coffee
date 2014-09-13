@@ -36,7 +36,6 @@ String::capitalize = ->
   input.value = string
 
 @initialize_modals = ->
-  console.log 'aca estoy'
   $("a[data-target=#modal]").click (ev) ->
     ev.preventDefault()
     target = $(this).attr("href")
