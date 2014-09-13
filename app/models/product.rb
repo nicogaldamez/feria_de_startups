@@ -14,23 +14,31 @@
 #
 
 class Product < ActiveRecord::Base
-  
+  #--------------------------------------------- RELATION
+  belongs_to :user, :class_name => "User", :foreign_key => "user_id"
+  has_many :votes, :class_name => "Vote", :foreign_key => "product_id", dependent: :destroy
+
+  #--------------------------------------------- MISC  
+  include PgSearch
+  pg_search_scope :search, against: [:name, :description],
+                  :ignoring => :accents,
+                  :using => { :tsearch => {:prefix => true} }
+                  
+  #--------------------------------------------- VALIDATION
   validates :name,  :presence => true
   validates :description,  :presence => true
   validates :url,  :presence => true
   validates :user_id,  :presence => true
   validates :name, uniqueness: {scope: :url, message: ' y la url ya existen'}
-  
-  belongs_to :user, :class_name => "User", :foreign_key => "user_id"
-  has_many :votes, :class_name => "Vote", :foreign_key => "product_id", dependent: :destroy
-  
+
+  #--------------------------------------------- CALLBACK
+
+  #--------------------------------------------- SCOPES
   scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
   
-  include PgSearch
-  pg_search_scope :search, against: [:name, :description],
-                  :ignoring => :accents,
-                  :using => { :tsearch => {:prefix => true} }
+  #--------------------------------------------- METHODS
   
+    
   def to_builder
     Jbuilder.new do |product|
       product.(self, :id, :name, :description, :url, :votes_count)
@@ -45,14 +53,9 @@ class Product < ActiveRecord::Base
     self.user == user
   end
   
-  def self.list (query, limit = 50)
-    if query.present?
-      result = search(query)
-    else
-      result = all
-    end
+  def self.list (query)
+    result = (query.present?) ? search(query) : all
     
-    # Los productos se ordenan por VOTOS - DIAS_PUBLICADO + 1
     result = result.joins("LEFT JOIN votes ON votes.product_id = products.id")
     result = result.select("(count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
                             + 14400 - DATE_PART('day', current_date - products.created_at)
@@ -63,8 +66,6 @@ class Product < ActiveRecord::Base
                             products.votes_count")
     result = result.group('products.id')
     result = result.order('2 DESC, 1 DESC, products.created_at DESC')
-    
-    result = result.limit(limit)
   end
   
   # Retorna los productos del usuario y cantidad de votos 

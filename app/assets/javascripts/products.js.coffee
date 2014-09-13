@@ -61,4 +61,13 @@
 $ ()->
   productsListEvents()
   
+  if $('#infinite-scrolling').size() > 0
+    $(window).on 'scroll', ->
+      more_products_url = $('.pagination a.next_page').attr('href')
+      if more_products_url  && $(window).scrollTop() > $(document).height() - $(window).height() - 60
+        $('.pagination').html('<div id="loading_products"> Cargando más productos... </div>')
+        $.getScript more_products_url 
+      return
+    return
+  
     
