@@ -86,7 +86,7 @@ class Product < ActiveRecord::Base
   private
   
   def mark_trending
-    if published
+    if trending_until_changed? && published
       self.trending_until = 24.hours.from_now
     end    
   end
