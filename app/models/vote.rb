@@ -22,10 +22,18 @@ class Vote < ActiveRecord::Base
   validates :product_id, :presence => true
   
   #--------------------------------------------- CALLBACK
+  after_save :mark_trending
 
   #--------------------------------------------- SCOPES
   scope :recents, -> { order(created_at: :desc) }
   
   #--------------------------------------------- METHODS
   
+  
+  private
+  
+  def mark_trending
+    product.trending_until = 24.hours.from_now
+    product.save
+  end
 end

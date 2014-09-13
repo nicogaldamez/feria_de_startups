@@ -33,8 +33,7 @@ class Product < ActiveRecord::Base
 
   #--------------------------------------------- CALLBACK
   before_create :mark_trending
-  before_save :mark_trending
-
+  
   #--------------------------------------------- SCOPES
   scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
   scope :recents, -> { includes(:user).order(created_at: :desc) }
@@ -86,8 +85,6 @@ class Product < ActiveRecord::Base
   private
   
   def mark_trending
-    if trending_until_changed? && published
-      self.trending_until = 24.hours.from_now
-    end    
+    self.trending_until = 24.hours.from_now
   end
 end
