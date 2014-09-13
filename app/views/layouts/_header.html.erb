@@ -11,6 +11,7 @@
   <% if signed_in? %>
   
     <div id="user_nav" class="dropdown">
+      <%= link_to "Blog", "http://medium.com/@feriadestartups", target: '_blank', id: 'blog_link' %>
       <a href="#" class="user_name dropdown-toggle" data-toggle="dropdown">
         <%= image_tag current_user.portrait('mini'), class: 'avatar'%>
         <%= current_user.name %> <b class="caret"></b>
