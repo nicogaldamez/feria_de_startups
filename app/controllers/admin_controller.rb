@@ -27,7 +27,7 @@ class AdminController < ApplicationController
   def toggle_published
     @product = Product.find(params[:id])
     respond_to do |format|
-      if @product.update(params.require(:product).permit(:published))
+      if @product.update(published: params[:product][:published], trending_until: Time.now + 24.hours)
         format.json { render json: @product.to_builder.target! }
       else
         raise(RequestExceptions::BadRequestError.new(@product.errors.full_messages))  
