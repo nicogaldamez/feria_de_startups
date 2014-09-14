@@ -251,3 +251,5 @@ ERROR:  cached plan must not change result type
 STATEMENT:  SELECT  "products".* FROM "products"  WHERE "products"."id" = $1 LIMIT 1
 ERROR:  column products.product_id does not exist at character 40
 STATEMENT:  SELECT COUNT(*) FROM "products"  WHERE "products"."product_id" = $1
+FATAL:  lock file "postmaster.pid" already exists
+HINT:  Is another postmaster (PID 807) running in data directory "/usr/local/var/postgres"?

@@ -32,7 +32,7 @@
         <ul>
           <% @users.each do |user| %>
             <li> 
-              <b> <%= twitter_profile_link(user.username) %> </b> - 
+              <b> <%= user.name %> </b> <%= twitter_profile_link(user.username) %> - 
               <%= date_to_text(user.created_at) %>
             </li>
           <% end %>
