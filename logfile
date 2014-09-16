@@ -253,3 +253,6 @@ ERROR:  column products.product_id does not exist at character 40
 STATEMENT:  SELECT COUNT(*) FROM "products"  WHERE "products"."product_id" = $1
 FATAL:  lock file "postmaster.pid" already exists
 HINT:  Is another postmaster (PID 807) running in data directory "/usr/local/var/postgres"?
+LOG:  database system was shut down at 2014-09-14 13:40:14 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections

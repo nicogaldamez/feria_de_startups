@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
   def self.send_daily
     users = User.want_to_receive_daily
     users.each do |user|
-      products = Product.list(nil, 10)
+      products = Product.list(nil).limit(10)
       UserMailer.daily(user, products).deliver unless products.empty? or user.email.nil?
     end
   end
