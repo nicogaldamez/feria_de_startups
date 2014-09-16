@@ -37,6 +37,7 @@ class Product < ActiveRecord::Base
   #--------------------------------------------- SCOPES
   scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
   scope :recents, -> { includes(:user).order(created_at: :desc) }
+  scope :published, -> { where(published: true) }
   
   #--------------------------------------------- METHODS
   
