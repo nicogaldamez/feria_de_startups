@@ -251,3 +251,6 @@ ERROR:  cached plan must not change result type
 STATEMENT:  SELECT  "products".* FROM "products"  WHERE "products"."id" = $1 LIMIT 1
 ERROR:  column products.product_id does not exist at character 40
 STATEMENT:  SELECT COUNT(*) FROM "products"  WHERE "products"."product_id" = $1
+LOG:  database system was shut down at 2014-09-16 17:26:44 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
