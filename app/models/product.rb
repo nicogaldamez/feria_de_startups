@@ -16,6 +16,7 @@
 class Product < ActiveRecord::Base
   #--------------------------------------------- RELATION
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
+  has_and_belongs_to_many :product
   has_many :votes, :class_name => "Vote", :foreign_key => "product_id", dependent: :destroy
 
   #--------------------------------------------- MISC  
