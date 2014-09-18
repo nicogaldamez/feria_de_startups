@@ -26,6 +26,11 @@ FeriaDeStartups::Application.routes.draw do
       get 'products'
     end
   end
+  resources :categories do
+    collection do
+      get 'reset_products_categories'
+    end
+  end
   
   root 'products#index'
   

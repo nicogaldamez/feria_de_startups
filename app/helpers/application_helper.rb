@@ -18,5 +18,9 @@ module ApplicationHelper
     date.strftime("%d/%m/%Y") unless date.nil?
   end
   
+  def text_to_color(text)
+    "<span class='label' style='background: #{text};'> #{text} </span>".html_safe
+  end
+  
 end
  

@@ -1,0 +1,27 @@
+<div class="container"> 
+  <h2> <%= @category.name %> </h2>
+  <h3> Palabras que incluye </h3>
+  <p> <%= @category.include_words %> </p>
+
+  <h3> Productos </h3>
+  <table class="table table-bordered table-bordered">
+    <thead>
+      <tr class="header-highlight">
+        <th>Nombre</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @products.each do |product| %>
+        <tr> 
+          <td> <%= product.name %> </td> 
+          <td> <%= product.description %> </td> 
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <%= link_to 'Volver', categories_path, class: 'btn btn-md btn-primary' %>
+</div>

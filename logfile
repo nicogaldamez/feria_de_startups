@@ -1,0 +1,262 @@
+LOG:  database system was shut down at 2014-07-30 08:16:54 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+FATAL:  role "feria_de_startups" does not exist
+FATAL:  role "ngaldamez" does not exist
+FATAL:  database "feria_de_startups_development" does not exist
+ERROR:  database "feria_de_startups_test" already exists
+STATEMENT:  CREATE DATABASE "feria_de_startups_test" ENCODING = 'unicode'
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-07-31 10:40:25 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+ERROR:  column products.product_id does not exist at character 44
+STATEMENT:  SELECT "products".* FROM "products"  WHERE "products"."product_id" = $1
+ERROR:  column products.product_id does not exist at character 44
+STATEMENT:  SELECT "products".* FROM "products"  WHERE "products"."product_id" = $1
+ERROR:  column products.product_id does not exist at character 44
+STATEMENT:  SELECT "products".* FROM "products"  WHERE "products"."product_id" = $1
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1
+ERROR:  value too long for type character varying(255)
+STATEMENT:  INSERT INTO "products" ("created_at", "description", "logo", "name", "updated_at", "url", "user_id", "video") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-04 10:42:21 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  duplicate key value violates unique constraint "index_products_on_url"
+DETAIL:  Key (url)=(http://www.facebook.com) already exists.
+STATEMENT:  INSERT INTO "products" ("created_at", "description", "name", "updated_at", "url", "user_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-04 23:59:14 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  column "created" does not exist at character 48
+STATEMENT:  SELECT "products".* FROM "products"   ORDER BY created desc
+ERROR:  missing FROM-clause entry for table "votes" at character 21
+STATEMENT:  SELECT  products.*, votes.* FROM "products"   ORDER BY created_at desc LIMIT 50
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 9
+STATEMENT:  SELECT  products.*, COUNT(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id  ORDER BY created_at desc, 2 desc LIMIT 50
+ERROR:  column products.title does not exist at character 21
+STATEMENT:  SELECT products.id, products.title, COUNT(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id  ORDER BY created_at desc
+ERROR:  column reference "created_at" is ambiguous at character 129
+STATEMENT:  SELECT products.id, products.name, COUNT(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id  ORDER BY created_at desc
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 8
+STATEMENT:  SELECT products.id, products.name, products.created_at, COUNT(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id  ORDER BY created_at desc
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 8
+STATEMENT:  SELECT products.id, products.name, products.created_at, COUNT(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id  ORDER BY created_at desc
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 8
+STATEMENT:  SELECT products.id, products.name, products.created_at, COUNT(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id  ORDER BY created_at desc
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 8
+STATEMENT:  SELECT products.id, products.name, products.created_at, COUNT(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id
+ERROR:  function unaccent(text) does not exist at character 56
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+STATEMENT:  SELECT  "products".*, ((ts_rank((to_tsvector('simple', unaccent(coalesce("products"."name"::text, ''))) || to_tsvector('simple', unaccent(coalesce("products"."description"::text, '')))), (to_tsquery('simple', ''' ' || unaccent('omive') || ' ''' || ':*')), 0))) AS pg_search_rank, count(votes) / DATE_PART('day', current_date - products.created_at) + 1, 
+	                            products.id, products.name, products.created_at,
+	                            products.url, products.description, products.user_id FROM "products" LEFT JOIN votes ON votes.product_id = products.id WHERE (((to_tsvector('simple', unaccent(coalesce("products"."name"::text, ''))) || to_tsvector('simple', unaccent(coalesce("products"."description"::text, '')))) @@ (to_tsquery('simple', ''' ' || unaccent('omive') || ' ''' || ':*')))) GROUP BY products.id  ORDER BY pg_search_rank DESC, "products"."id" ASC, 1 DESC, products.created_at DESC LIMIT 50
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-11 00:06:10 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+ERROR:  syntax error at or near "FROM" at character 363
+STATEMENT:  SELECT  (count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
+	                            + 10 - (DATE_PART('day', current_date - products.created_at)
+	                            , 
+	                            products.id, products.name, products.created_at,
+	                            products.url, products.description, products.user_id FROM "products" LEFT JOIN votes ON votes.product_id = products.id GROUP BY products.id  ORDER BY 1 DESC, products.created_at DESC LIMIT 50
+ERROR:  relation "users" does not exist at character 24
+STATEMENT:  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1
+ERROR:  relation "votes" does not exist at character 22
+STATEMENT:  SELECT COUNT(*) FROM "votes"  WHERE "votes"."product_id" = $1
+ERROR:  relation "votes" does not exist at character 22
+STATEMENT:  SELECT COUNT(*) FROM "votes"  WHERE "votes"."product_id" = $1
+ERROR:  relation "votes" does not exist at character 22
+STATEMENT:  SELECT COUNT(*) FROM "votes"  WHERE "votes"."product_id" = $1
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+FATAL:  terminating connection due to administrator command
+FATAL:  terminating connection due to administrator command
+FATAL:  terminating connection due to administrator command
+FATAL:  terminating connection due to administrator command
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-11 17:09:22 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-12 23:18:18 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1
+ERROR:  column products.product_id does not exist at character 104
+STATEMENT:  SELECT "products".* FROM "products" INNER JOIN "votes" ON "votes"."product_id" = "products"."id" WHERE "products"."product_id" = $1 AND (votes.created_at = '2014-08-14')
+ERROR:  column products.product_id does not exist at character 94
+STATEMENT:  SELECT "products".* FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE "products"."product_id" = $1 AND (votes.created_at = '2014-08-14')
+ERROR:  argument of WHERE must be type boolean, not type record at character 94
+STATEMENT:  SELECT "products".* FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE (products.user_id = 2, votes.created_at = '2014-08-14')
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 8
+STATEMENT:  SELECT products.*, count(votes) FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE (products.user_id = 2 and votes.created_at = '2014-08-14')
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 8
+STATEMENT:  SELECT products.*, count(votes.id) FROM "products" INNER JOIN votes ON votes.product_id = products.id WHERE (products.user_id = 2 and votes.created_at = '2014-08-14')
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-14 13:52:25 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "users".* FROM "users"  WHERE "users"."id" = $1 LIMIT 1
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-15 21:29:27 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+ERROR:  column "users.name" must appear in the GROUP BY clause or be used in an aggregate function at character 52
+STATEMENT:  SELECT count(votes.id) as votes_count, products.*, users.name as user_name FROM "products" INNER JOIN votes ON votes.product_id = products.id INNER JOIN users ON users.id = products.user_id WHERE (votes.created_at > '2014-08-19') GROUP BY products.id  ORDER BY 1 desc
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-19 13:46:50 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-20 11:00:17 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-21 11:54:13 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-28 00:38:18 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.nombre  LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+ERROR:  missing FROM-clause entry for table "empleados" at character 84
+STATEMENT:  SELECT  "operaciones_personal".* FROM "operaciones_personal"  ORDER BY fecha DESC, empleados.apellido, empleados.nombre LIMIT 25
+FATAL:  terminating connection due to administrator command
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-08-28 23:25:32 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-09-01 13:17:08 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+FATAL:  lock file "postmaster.pid" already exists
+HINT:  Is another postmaster (PID 868) running in data directory "/usr/local/var/postgres"?
+LOG:  database system was shut down at 2014-09-10 12:17:29 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-09-10 23:23:45 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-09-11 23:03:31 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  column "products.id" must appear in the GROUP BY clause or be used in an aggregate function at character 9
+STATEMENT:  SELECT  "products".*, ((ts_rank((to_tsvector('simple', unaccent(coalesce("products"."name"::text, ''))) || to_tsvector('simple', unaccent(coalesce("products"."description"::text, '')))), (''), 0))) AS pg_search_rank, (count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
+	                            + 14400 - DATE_PART('day', current_date - products.created_at)
+	                            , 
+	                            (products.created_at > now() - interval '24 hour'),
+	                            products.id, products.name, products.created_at,
+	                            products.url, products.description, products.user_id,
+	                            products.votes_count FROM "products" LEFT JOIN votes ON votes.product_id = products.id WHERE (((to_tsvector('simple', unaccent(coalesce("products"."name"::text, ''))) || to_tsvector('simple', unaccent(coalesce("products"."description"::text, '')))) @@ ('')))  ORDER BY pg_search_rank DESC, "products"."id" ASC, "products"."created_at" DESC LIMIT 20 OFFSET 0
+ERROR:  column "products.created_at" must appear in the GROUP BY clause or be used in an aggregate function at character 58
+STATEMENT:  SELECT  (count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
+	                            + 14400 - DATE_PART('day', current_date - products.created_at)
+	                            , 
+	                            (products.created_at > now() - interval '24 hour'),
+	                            products.id, products.name, products.created_at,
+	                            products.url, products.description, products.user_id,
+	                            products.votes_count FROM "products" LEFT JOIN votes ON votes.product_id = products.id  ORDER BY "products"."created_at" DESC LIMIT 20 OFFSET 0
+ERROR:  column "products.created_at" must appear in the GROUP BY clause or be used in an aggregate function at character 58
+STATEMENT:  SELECT  (count(votes) / (DATE_PART('day', current_date - products.created_at) + 1))
+	                            + 14400 - DATE_PART('day', current_date - products.created_at)
+	                            , 
+	                            (products.created_at > now() - interval '24 hour'),
+	                            products.id, products.name, products.created_at,
+	                            products.url, products.description, products.user_id,
+	                            products.votes_count FROM "products" LEFT JOIN votes ON votes.product_id = products.id  ORDER BY "products"."created_at" DESC LIMIT 20 OFFSET 0
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "products".* FROM "products"  WHERE "products"."id" = $1 LIMIT 1
+ERROR:  column products.product_id does not exist at character 40
+STATEMENT:  SELECT COUNT(*) FROM "products"  WHERE "products"."product_id" = $1
+FATAL:  lock file "postmaster.pid" already exists
+HINT:  Is another postmaster (PID 807) running in data directory "/usr/local/var/postgres"?
+LOG:  database system was shut down at 2014-09-14 13:40:14 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
