@@ -20,3 +20,4 @@ doc/
 .secret
 
 local_env.yml
+logfile
