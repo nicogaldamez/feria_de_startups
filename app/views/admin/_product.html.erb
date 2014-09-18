@@ -11,9 +11,7 @@
     <%= truncate(product.description, length: 40, omission: '...') %>
   </td>
   <td>
-    <% if !product.trending_until.nil? && product.trending_until > Time.now %>
-      <%= distance_of_time_in_words(Time.now, product.trending_until).humanize  %>
-    <% end %>
+    <%= product.categories.join(',') %>
   </td>
   <td>
     <label class="checkbox_label">

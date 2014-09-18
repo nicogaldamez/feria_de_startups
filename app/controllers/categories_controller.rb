@@ -11,6 +11,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1
   def show
+    @products = @category.products
   end
 
   # GET /categories/new
@@ -50,6 +51,11 @@ class CategoriesController < ApplicationController
     @category.destroy
     redirect_to categories_url, notice: 'Categoría eliminada.'
   end
+  
+  def reset_products_categories
+    Product.reset_categories
+    redirect_to categories_url, notice: 'Recalculo exitoso.'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -59,6 +65,6 @@ class CategoriesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def category_params
-      params.require(:category).permit(:name, :include_words, :exclude_words)
+      params.require(:category).permit(:name, :include_words, :exclude_words, :color)
     end
 end

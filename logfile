@@ -254,3 +254,25 @@ STATEMENT:  SELECT COUNT(*) FROM "products"  WHERE "products"."product_id" = $1
 LOG:  database system was shut down at 2014-09-16 17:26:44 ART
 LOG:  autovacuum launcher started
 LOG:  database system is ready to accept connections
+ERROR:  column categories.description does not exist at character 76
+STATEMENT:  SELECT "categories".*, ((ts_rank((to_tsvector('spanish', unaccent(coalesce("categories"."description"::text, '')))), (to_tsquery('spanish', ''' ' || unaccent('viaje') || ' ''')), 0))) AS pg_search_rank FROM "categories"  WHERE (((to_tsvector('spanish', unaccent(coalesce("categories"."description"::text, '')))) @@ (to_tsquery('spanish', ''' ' || unaccent('viaje') || ' '''))))  ORDER BY "categories"."name" ASC, pg_search_rank DESC, "categories"."id" ASC
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "categories".* FROM "categories"  WHERE "categories"."id" = $1  ORDER BY "categories"."name" ASC LIMIT 1
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "categories".* FROM "categories"  WHERE "categories"."id" = $1  ORDER BY "categories"."name" ASC LIMIT 1
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT "categories".* FROM "categories" INNER JOIN "categories_products" ON "categories"."id" = "categories_products"."category_id" WHERE "categories_products"."product_id" = $1  ORDER BY "categories"."name" ASC
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT "categories".* FROM "categories" INNER JOIN "categories_products" ON "categories"."id" = "categories_products"."category_id" WHERE "categories_products"."product_id" = $1  ORDER BY "categories"."name" ASC
+ERROR:  column "yes_words" of relation "categories" does not exist
+STATEMENT:  ALTER TABLE "categories" ALTER COLUMN "yes_words" TYPE text
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "categories".* FROM "categories"  WHERE "categories"."id" = $1  ORDER BY "categories"."name" ASC LIMIT 1
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT  "categories".* FROM "categories"  WHERE "categories"."id" = $1  ORDER BY "categories"."name" ASC LIMIT 1
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT "categories".* FROM "categories" INNER JOIN "categories_products" ON "categories"."id" = "categories_products"."category_id" WHERE "categories_products"."product_id" = $1  ORDER BY "categories"."name" ASC
+ERROR:  current transaction is aborted, commands ignored until end of transaction block
+STATEMENT:  DEALLOCATE a32
+ERROR:  cached plan must not change result type
+STATEMENT:  SELECT "categories".* FROM "categories" INNER JOIN "categories_products" ON "categories"."id" = "categories_products"."category_id" WHERE "categories_products"."product_id" = $1  ORDER BY "categories"."name" ASC

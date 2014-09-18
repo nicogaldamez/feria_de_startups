@@ -16,14 +16,17 @@
 class Product < ActiveRecord::Base
   #--------------------------------------------- RELATION
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
-  has_and_belongs_to_many :product
+  has_and_belongs_to_many :categories
   has_many :votes, :class_name => "Vote", :foreign_key => "product_id", dependent: :destroy
 
   #--------------------------------------------- MISC  
   include PgSearch
   pg_search_scope :search, against: [:name, :description],
+                  associated_against: {categories: [:name, :include_words]},
                   :ignoring => :accents,
-                  :using => { :tsearch => {:prefix => true} }
+                  :using => { 
+                    :tsearch => {:prefix => true, :dictionary => "spanish"} 
+                  }
                   
   #--------------------------------------------- VALIDATION
   validates :name,  :presence => true
@@ -34,6 +37,7 @@ class Product < ActiveRecord::Base
 
   #--------------------------------------------- CALLBACK
   before_create :mark_trending
+  before_create :set_categories
   
   #--------------------------------------------- SCOPES
   scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
@@ -82,10 +86,35 @@ class Product < ActiveRecord::Base
     result
   end
   
+  def color
+    if categories.count == 0
+      colors = ["#f95dae", "#5db9f8", "#f16565", "#6cc884", "#40d6d5", "#ff9b3d",
+                "#af5dce", "#f4e265", "#6584ca", "#f55952"]
+      colors[rand(colors.size)]
+    else
+      categories.first.color
+    end
+    
+  end
+  
+  def self.reset_categories
+    Product.find_each do |product|
+      matching_categories = Category.search(product.description)
+      product.categories.destroy_all
+      product.categories << matching_categories
+    end
+  end
+  
   
   private
   
   def mark_trending
     self.trending_until = 24.hours.from_now
   end
+  
+  def set_categories
+    matching_categories = Category.search(description)
+    self.categories << matching_categories
+  end
+  
 end

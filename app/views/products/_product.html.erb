@@ -2,8 +2,8 @@
   
   <!-- INICIAL -->
   <div class="left pull-left" id="product_<%= product.id %>">
-    <% background_color = "background: #{randomized_background_color()}" %>
-    <div class="initial" style="<%= background_color %>">
+    <% background_color = product.color %>
+    <div class="initial" style="background: <%= background_color %>">
       <%= product.initial.upcase %>
       <% 
       product_url = u (view_product_url(product))

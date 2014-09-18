@@ -1,7 +1,7 @@
 <tr>
-  <td> <%= category %> </td>
+  <td> <%= link_to category, category %> </td>
+  <td> <%= text_to_color(category.color) %> </td>
   <td> <%= category.include_words %></td>
-  <td> <%= category.exclude_words %></td>
   <td>
     <%= link_to "Editar", edit_category_path(category), class: "btn btn-sm btn-warning", id: "btn_edit_product",
               data: { target: "#modal", modalsize: 'small', modaltitle: 'Editar categoría' } %>       
