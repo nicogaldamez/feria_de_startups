@@ -22,7 +22,7 @@ class Product < ActiveRecord::Base
   #--------------------------------------------- MISC  
   include PgSearch
   pg_search_scope :search, against: [:name, :description],
-                  associated_against: {categories: [:name, :include_words]},
+                  associated_against: {categories: [:name]},
                   :ignoring => :accents,
                   :using => { 
                     :tsearch => {:prefix => true, :dictionary => "spanish"} 
