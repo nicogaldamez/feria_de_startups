@@ -89,8 +89,7 @@ class Product < ActiveRecord::Base
   
   def color
     if categories.count == 0
-      colors = ["#f95dae", "#5db9f8", "#f16565", "#6cc884", "#40d6d5", "#ff9b3d",
-                "#af5dce", "#f4e265", "#6584ca", "#f55952"]
+      colors = ["#f16565", "#6cc884", "#40d6d5","#6584ca"]
       colors[rand(colors.size)]
     else
       categories.first.color
