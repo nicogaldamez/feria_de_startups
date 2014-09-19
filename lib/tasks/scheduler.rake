@@ -8,7 +8,12 @@ task :send_votes_email => :environment do
 end
 
 task :send_daily_email => :environment do
-  puts "Enviando destacado a usuarios..."
-  User.send_daily
-  puts "Listo :)"
+  if Time.now.saturday? or Time.now.sunday?
+    puts "No envío nada porque es fin de semana"
+  else
+    puts "Enviando destacado a usuarios..."
+    User.send_daily
+    puts "Listo :)"
+  end
+  
 end

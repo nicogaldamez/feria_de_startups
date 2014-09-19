@@ -22,5 +22,17 @@ module ApplicationHelper
     "<span class='label' style='background: #{text};'> #{text} </span>".html_safe
   end
   
+  def icon(name)
+    content_tag :span, nil, class: "glyphicon glyphicon-#{name}"
+  end
+
+  def icon_left(name, string)
+    (content_tag(:i, nil, class: "glyphicon glyphicon-#{name} margin-right-5") + string)
+  end
+
+  def icon_right(name, string)
+    (string + content_tag(:i, nil, class: "glyphicon glyphicon-#{name} margin-left-5")).html_safe
+  end
+  
 end
  
