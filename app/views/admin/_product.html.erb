@@ -28,6 +28,10 @@
               data: { target: "#modal", modalsize: 'small', modaltitle: 'Editar un producto' } %>
     <%= link_to icon(:trash), product, class: 'btn btn-sm btn-danger', method: :delete, 
           data: { confirm: 'Esta Seguro?' } %>
+    <%= link_to icon('thumbs-up'), fake_vote_product_votes_path(product), 
+          class: "btn btn-sm btn-success", remote: true, title: 'Votar con fake user' %>
+    <%= link_to icon('thumbs-down'), remove_fake_vote_product_votes_path(product), 
+          class: "btn btn-sm btn-danger", remote: true, title: 'Eliminar voto de fake user' %>      
 
   </td>
 <% end %>

@@ -49,7 +49,7 @@
       <% end %>
       
       <ul class="list-inline votes"> 
-        <%= render partial:'vote', collection: @product.votes.limit(3) %> 
+        <%= render partial:'vote', collection: @product.votes.recents.limit(3) %>
         <% if @product.votes.size > 3 %>
           <li> <small> <%= link_to "#{@product.votes.size - 3} más", "#" %> </small>
         <% end %>

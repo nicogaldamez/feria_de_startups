@@ -20,7 +20,6 @@ class Permission
         u.id == user.id
       end
       
-      allow_param :topic, [:name, :url, :description]
     end
     
     # Administrador

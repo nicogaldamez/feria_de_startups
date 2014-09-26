@@ -1,0 +1,2 @@
+show_alert('<%= @msg %>', '<%= @type %>')
+$('#<%= dom_id(@product)%>').replaceWith('<%= escape_javascript(render partial: 'admin/product', locals: {product: @product}) %>')

@@ -23,7 +23,6 @@ class Vote < ActiveRecord::Base
   
   #--------------------------------------------- CALLBACK
   after_save :mark_trending
-  before_save :set_fake_user
 
   #--------------------------------------------- SCOPES
   scope :recents, -> { order(created_at: :desc) }
@@ -36,16 +35,6 @@ class Vote < ActiveRecord::Base
   def mark_trending
     product.trending_until = 24.hours.from_now
     product.save
-  end
-  
-  # Si es administrador asigno un fake user random
-  def set_fake_user
-    if user.admin
-      fake_users = User.except(product.votes.select(:user_id)).fake_users
-      # pry.binding
-      return false if fake_users.size == 0
-      self.user = fake_users.sample
-    end
   end
   
 end

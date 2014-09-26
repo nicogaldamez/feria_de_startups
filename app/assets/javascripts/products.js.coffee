@@ -9,9 +9,10 @@
       # Estoy en la pantalla de productos principal
       $('#products .list').prepend(data)
       productsListEvents()
+      initialize_modals()
     else
       $('#admin-products-container table tbody').html('');
-      $.getScript('/admin/products');
+      $.getScript('/admin/products');      
   
   $("form.new_product").on "ajax:error", (event, xhr, status, error) ->
     errors = jQuery.parseJSON(xhr.responseText)

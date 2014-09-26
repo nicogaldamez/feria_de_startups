@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
   # --------------------------------------------
   def create
     # Si es administrador puede subir como fake
-    if params[:fake_user] && current_user.admin
+    if !params[:product][:fake_user].nil? && params[:product][:fake_user] == '1' && current_user.admin
       user = User.fake_users.sample
     else
       user = current_user
