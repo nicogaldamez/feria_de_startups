@@ -36,4 +36,5 @@ class Vote < ActiveRecord::Base
     product.trending_until = 24.hours.from_now
     product.save
   end
+  
 end

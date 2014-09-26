@@ -8,6 +8,8 @@ FeriaDeStartups::Application.routes.draw do
     resources :votes, only: [] do
       collection do
         get 'vote'
+        get 'fake_vote'
+        get 'remove_fake_vote'
       end
     end
   end

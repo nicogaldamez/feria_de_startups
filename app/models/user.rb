@@ -35,22 +35,36 @@ class User < ActiveRecord::Base
   scope :want_to_receive_daily, -> { where('receive_daily and email is not null') }
   scope :today_users, -> { where('created_at::date > ?', Time.now - 24.hour) }
   scope :recents, -> { order(created_at: :desc) }
+  scope :fake_users, -> { where(fake: true) }
+  scope :except, ->(users) { where('id not in (:users)', users: users) }
   
   #--------------------------------------------- METHODS
   
   def self.from_omniauth(auth)
-    where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
+    user = where(auth.slice("provider", "uid")).first 
+    if user.nil?
+      user = create_update_from_omniauth(auth)
+    else
+      user = create_update_from_omniauth(auth, user)
+    end
+    
+    user
   end
 
-  def self.create_from_omniauth(auth)
-    create! do |user|
-      user.provider = auth["provider"]
-      user.uid = auth["uid"]
-      user.username = auth["info"]["nickname"]
-      user.name = auth["info"]["name"]
-      user.avatar = auth['info']['image'].sub("_normal", "")
-      user.description = auth['info']['description']
+  def self.create_update_from_omniauth(auth, user=nil)
+    if user.nil?
+      user = new
     end
+    
+    user.provider = auth["provider"]
+    user.uid = auth["uid"]
+    user.username = auth["info"]["nickname"]
+    user.name = auth["info"]["name"]
+    user.avatar = auth['info']['image'].sub("_normal", "")
+    user.description = auth['info']['description']
+    
+    user.save!
+    user
   end
   
   def is_admin?
@@ -96,6 +110,11 @@ class User < ActiveRecord::Base
     vote = self.votes.where(product_id: product.id)
     
     !vote.empty?
+  end
+  
+  def voted_products
+    Product.voted_by_user(self)
+    
   end
   
   def self.send_voted_products

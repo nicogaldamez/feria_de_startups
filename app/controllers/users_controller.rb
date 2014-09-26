@@ -18,6 +18,13 @@ class UsersController < ApplicationController
   end
   
   # -------------------------------------------------
+  def show
+    @user = User.find(params[:id])
+    @products = @user.products.limit(10)
+    @votes = @user.voted_products.limit(10)
+  end
+  
+  # -------------------------------------------------
   def update
     user = current_user
     if user.update_attributes(user_params)

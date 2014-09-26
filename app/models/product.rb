@@ -42,6 +42,8 @@ class Product < ActiveRecord::Base
   #--------------------------------------------- SCOPES
   scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
   scope :recents, -> { includes(:user).order(created_at: :desc) }
+  scope :voted_by_user, ->(user) { joins(:votes).where('votes.user_id = :user', user: user).order(created_at: :desc) }
+  scope :except, ->(users) { where('id not in (:users)', users: users) }
   scope :published, -> { where(published: true) }
   
   #--------------------------------------------- METHODS

@@ -11,6 +11,7 @@
  *= require_self
  *= require custom
  *= require products
+ *= require users
  *= require phones
  *= require tablets
  *= require big_screens

@@ -5,9 +5,13 @@ th.actions {
 #admin_layout {
   header { background: none; margin: 0px; padding-bottom: 30px; height: auto;}
   .navbar-brand { color: white; }
-  .actions { width: 130px;}
+  .actions { width: 200px;}
 }
 
 .admin_panel {
   li { list-style: none; }
+}
+
+#admin-products-container {
+  font-size: 0.8em;
 }

@@ -23,7 +23,7 @@ module ApplicationHelper
   end
   
   def icon(name)
-    content_tag :span, nil, class: "glyphicon glyphicon-#{name}"
+    content_tag :i, nil, class: "glyphicon glyphicon-#{name}"
   end
 
   def icon_left(name, string)

@@ -1,5 +1,5 @@
 /* PRODUCTS */
-#products {
+#products, #user_profile {
   width: 95%;
   margin: auto;
   aside {
@@ -27,12 +27,19 @@
     }
   }
   
-  .list {
+  .list, .user_profile_products {
     .media {
       margin-bottom: 10px;
     
       .left {
+        position: relative;
         text-align: center;
+        
+        .avatar {
+          position: absolute;
+          top: 32px;
+          left: 0px;
+        }
       }
     }
     .media-heading {
@@ -153,6 +160,12 @@
   
   .like.highlight {
     font-weight: bold;
+  }
+  
+  .votes {
+    display: inline-block;
+    width: 400px;
+    li { padding-right: 0; }
   }
 }
 

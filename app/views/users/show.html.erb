@@ -1,0 +1,25 @@
+<div id="user_profile">
+  <div class="text-center">  
+    <%= image_tag @user.portrait('bigger'), class: 'avatar'%>
+    <h3> <%= @user.name %> </h3>
+    <p> <%= @user.description %> </p>
+    <hr>
+  </div>
+  
+  <div class="list">
+    <h4 class="text-center"> Últimos Productos </h4>
+    <ul>
+      <%= render partial: 'products/product', collection: @products %>
+      <%= "<li class='no-style text-muted text-center'> No hay productos </li>".html_safe unless @products.size > 0%>
+    </ul>
+  </div>
+  
+  <div class="list votes">
+    <h4 class="text-center"> Últimos Votos </h4>
+    <ul>
+      <%= render partial:'products/product', collection: @votes %>
+      <%= "<li class='no-style text-muted text-center'> No hay votos registrados </li>".html_safe unless @votes.size > 0%>
+    </ul>
+  </div>
+  
+</div>  
