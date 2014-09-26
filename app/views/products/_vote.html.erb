@@ -1,0 +1,5 @@
+<%= content_tag(:li) do %>
+  <%= link_to vote.user, title: vote.user.name do %>
+    <%= image_tag vote.user.portrait('mini'), class: 'avatar'%>
+  <% end %>
+<% end %>

@@ -48,8 +48,11 @@ String::capitalize = ->
     openModal(size, target, title, options)
     
     return
+    
+@initialize_tooltips = ->
+  $("[data-toggle~=tooltip]").tooltip()
   
 $ ()->
   
   initialize_modals()
-  
+  initialize_tooltips()

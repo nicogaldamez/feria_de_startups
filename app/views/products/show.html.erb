@@ -1,21 +1,36 @@
-<div id="show_product" class="row">
+<div id="show_product">
   
-  <div class="col-md-5">
-    <div class="media">
-      <div class="left pull-left">
-        <% background_color = "background: #{randomized_background_color()}" %>
-        <div class="initial" style="<%= background_color %>">
-          <%= @product.initial.upcase %>
+  <div class="row">
+  
+    <div class="col-md-5">
+      <div class="media">
+        <div class="left pull-left">
+          <% background_color = "background: #{randomized_background_color()}" %>
+          <div class="initial" style="<%= background_color %>">
+            <%= @product.initial.upcase %>
+          </div>
+        </div>
+    
+        <div class="media-body" id="popup_product_<%= @product.id %>">
+          <%= link_to @product.name, @product.url, class: 'media-heading', target: '_blank' %>
+          <small class="votes_count"> 
+            <%= @product.votes.count || 0 %> votos 
+            - 
+            <%= link_to @product.user.name, @product.user %>
+          </small>
         </div>
       </div>
-    
-      <div class="media-body" id="popup_product_<%= @product.id %>">
-        <%= link_to @product.name, @product.url, class: 'media-heading', target: '_blank' %>
-        <small class="votes_count"> <%= @product.votes.count || 0 %> votos </small>
-      </div>
+    </div>  
+      
+    <div class="col-md-5 col-md-offset-1 right">    
+        <span class="text-muted"> <%= @product.description %> </span>
+        <p> <%= link_to truncate(@product.url, :length => 35, :omission => '...'), @product.url, target: '_blank' %> </p>
     </div>
     
-    <div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
       <% 
       product_url = u (view_product_url(@product))
       text = u "#{@product.name}: #{@product.description}"
@@ -32,13 +47,16 @@
       <% else %>
         <%= link_to 'Me gusta', '/auth/twitter', class: 'btn btn-success btn-sm'  %> 
       <% end %>
-    </div>
-  </div>  
       
-  <div class="col-md-5 col-md-offset-1 right">    
-      <span class="text-muted"> <%= @product.description %> </span>
-      <p> <%= link_to truncate(@product.url, :length => 35, :omission => '...'), @product.url, target: '_blank' %> </p>
-  </div>
+      <ul class="list-inline votes"> 
+        <%= render partial:'vote', collection: @product.votes.limit(3) %> 
+        <% if @product.votes.size > 3 %>
+          <li> <small> <%= link_to "#{@product.votes.size - 3} más", "#" %> </small>
+        <% end %>
+      </ul>
+    </div>
+    
+  </div> 
   
 </div>
 

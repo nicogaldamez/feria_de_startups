@@ -276,3 +276,26 @@ ERROR:  current transaction is aborted, commands ignored until end of transactio
 STATEMENT:  DEALLOCATE a32
 ERROR:  cached plan must not change result type
 STATEMENT:  SELECT "categories".* FROM "categories" INNER JOIN "categories_products" ON "categories"."id" = "categories_products"."category_id" WHERE "categories_products"."product_id" = $1  ORDER BY "categories"."name" ASC
+LOG:  database system was shut down at 2014-09-19 23:29:39 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
+ERROR:  relation "categories" does not exist at character 22
+STATEMENT:  SELECT COUNT(*) FROM "categories" INNER JOIN "categories_products" ON "categories"."id" = "categories_products"."category_id" WHERE "categories_products"."product_id" = $1
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-09-24 00:16:02 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  operator does not exist: character varying = integer at character 52
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+STATEMENT:  SELECT "users".* FROM "users"  WHERE "users"."uid" = 123
+ERROR:  column products.admin does not exist at character 101
+STATEMENT:  SELECT "products".* FROM "products" INNER JOIN "users" ON "users"."id" = "products"."user_id" WHERE "products"."admin" = 't'
+LOG:  database system was interrupted; last known up at 2014-09-25 20:40:58 ART
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  record with zero length at 0/8F414388
+LOG:  redo is not required
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started

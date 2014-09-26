@@ -5,6 +5,7 @@ class Permission
     allow :products, [:index, :show, :view]
     allow :sessions, [:create, :destroy]
     allow :auth, [:failure]
+    allow :users, [:show]
 
     # Miembro
     if user

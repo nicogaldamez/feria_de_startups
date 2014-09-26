@@ -20,8 +20,14 @@ class ProductsController < ApplicationController
   
   # --------------------------------------------
   def create
-    @product = Product.new(product_params)
-    @product.user_id = current_user.id
+    # Si es administrador puede subir como fake
+    if params[:fake_user] && current_user.admin
+      user = User.fake_users.sample
+    else
+      user = current_user
+    end
+    
+    @product = user.products.build(product_params)
     
     if @product.save
       render 'products/_product', locals: { product: @product }, 
