@@ -5,8 +5,8 @@ class AdminController < ApplicationController
   
   # --------------------------------------------------------
   def index
-    @products = Product.recents.limit(5)
-    @products_count = Product.count
+    @products = Product.published.recents.limit(5)
+    @products_count = Product.published.count
     @users = User.recents.limit(5)
     @users_count = User.count
     @votes = Vote.recents.limit(10).includes([:user,:product])

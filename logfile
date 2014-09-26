@@ -251,9 +251,12 @@ ERROR:  cached plan must not change result type
 STATEMENT:  SELECT  "products".* FROM "products"  WHERE "products"."id" = $1 LIMIT 1
 ERROR:  column products.product_id does not exist at character 40
 STATEMENT:  SELECT COUNT(*) FROM "products"  WHERE "products"."product_id" = $1
-LOG:  database system was shut down at 2014-09-16 17:26:44 ART
+FATAL:  lock file "postmaster.pid" already exists
+HINT:  Is another postmaster (PID 807) running in data directory "/usr/local/var/postgres"?
+LOG:  database system was shut down at 2014-09-14 13:40:14 ART
 LOG:  autovacuum launcher started
 LOG:  database system is ready to accept connections
+<<<<<<< HEAD
 ERROR:  column categories.description does not exist at character 76
 STATEMENT:  SELECT "categories".*, ((ts_rank((to_tsvector('spanish', unaccent(coalesce("categories"."description"::text, '')))), (to_tsquery('spanish', ''' ' || unaccent('viaje') || ' ''')), 0))) AS pg_search_rank FROM "categories"  WHERE (((to_tsvector('spanish', unaccent(coalesce("categories"."description"::text, '')))) @@ (to_tsquery('spanish', ''' ' || unaccent('viaje') || ' '''))))  ORDER BY "categories"."name" ASC, pg_search_rank DESC, "categories"."id" ASC
 ERROR:  cached plan must not change result type
@@ -281,10 +284,13 @@ LOG:  autovacuum launcher started
 LOG:  database system is ready to accept connections
 ERROR:  relation "categories" does not exist at character 22
 STATEMENT:  SELECT COUNT(*) FROM "categories" INNER JOIN "categories_products" ON "categories"."id" = "categories_products"."category_id" WHERE "categories_products"."product_id" = $1
+=======
+>>>>>>> master
 LOG:  autovacuum launcher shutting down
 LOG:  received smart shutdown request
 LOG:  shutting down
 LOG:  database system is shut down
+<<<<<<< HEAD
 LOG:  database system was shut down at 2014-09-24 00:16:02 ART
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
@@ -297,5 +303,8 @@ LOG:  database system was interrupted; last known up at 2014-09-25 20:40:58 ART
 LOG:  database system was not properly shut down; automatic recovery in progress
 LOG:  record with zero length at 0/8F414388
 LOG:  redo is not required
+=======
+LOG:  database system was shut down at 2014-09-17 23:51:54 ART
+>>>>>>> master
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started

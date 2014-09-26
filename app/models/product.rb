@@ -22,7 +22,7 @@ class Product < ActiveRecord::Base
   #--------------------------------------------- MISC  
   include PgSearch
   pg_search_scope :search, against: [:name, :description],
-                  associated_against: {categories: [:name, :include_words]},
+                  associated_against: {categories: [:name]},
                   :ignoring => :accents,
                   :using => { 
                     :tsearch => {:prefix => true, :dictionary => "spanish"} 
@@ -44,6 +44,7 @@ class Product < ActiveRecord::Base
   scope :recents, -> { includes(:user).order(created_at: :desc) }
   scope :voted_by_user, ->(user) { joins(:votes).where('votes.user_id = :user', user: user).order(created_at: :desc) }
   scope :except, ->(users) { where('id not in (:users)', users: users) }
+  scope :published, -> { where(published: true) }
   
   #--------------------------------------------- METHODS
   
@@ -90,8 +91,7 @@ class Product < ActiveRecord::Base
   
   def color
     if categories.count == 0
-      colors = ["#f95dae", "#5db9f8", "#f16565", "#6cc884", "#40d6d5", "#ff9b3d",
-                "#af5dce", "#f4e265", "#6584ca", "#f55952"]
+      colors = ["#f16565", "#6cc884", "#40d6d5","#6584ca"]
       colors[rand(colors.size)]
     else
       categories.first.color
