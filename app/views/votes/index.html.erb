@@ -1,0 +1,19 @@
+<% count = 0 %>
+<div class="row margin-top-10 margin-bottom-10">
+<% @votes.each do |vote| %>
+  <% if count % 3 == 0 && count > 0%>
+    </div>
+    <div class="row margin-top-10 margin-bottom-10">
+  <% end %>
+
+  <div class="col-md-4">
+    <small>
+    <%= link_to vote.user, title: vote.user.name, class: 'text-muted' do %>
+      <%= image_tag vote.user.portrait('mini'), class: 'avatar'%>
+      <%= vote.user.name %>
+    <% end %></small>
+  </div>
+
+  <% count += 1 %>
+<% end %>
+</div>
