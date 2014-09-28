@@ -31,5 +31,17 @@ namespace :admin do
       end
     end
   end
+
+  desc "Inicialización de reputación"
+  task :set_reputation => :environment do
+    User.find_each do |user|
+      reputation = 1
+      user.products.find_each do |product|
+        reputation += product.votes.count
+      end
+
+      user.update(reputation: reputation) unless reputation == 1
+    end
+  end
   
 end

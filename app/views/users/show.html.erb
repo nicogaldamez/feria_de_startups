@@ -3,6 +3,9 @@
     <%= image_tag @user.portrait('bigger'), class: 'avatar'%>
     <h3> <%= @user.name %> </h3>
     <p> <%= @user.description %> </p>
+    <p>
+      <label for=""> Reputación: </label>
+      <%= @user.reputation %> </p>
     <hr>
   </div>
   

@@ -1,0 +1,37 @@
+<%= content_tag :div, id: dom_id(@product)+'_comments', class: 'product_comments' do %>
+
+  <%= render @comments %>
+
+<% end %>
+
+<% if @comments.size == 0 %>
+  <p class="text-muted" id="no_comments"> No hay comentarios </p>
+<% end %>
+
+<hr>
+
+<% if allow?(:comments, :create, @comment) %>
+
+  <h5> Nuevo comentario </h5>
+
+  <%= form_for [@product, @comment], remote: true, id: 'new_comment_form',
+               html: {role: :form, autocomplete: 'off'} do |f| %>
+
+    <div class="form-group">
+      <%= f.text_area :body, placeholder: "Ingresá tu comentario", required: true,
+                      class: "form-control" %>
+    </div>
+
+    <div class="submit">
+      <%= f.submit "Guardar comentario", class: 'btn btn-success' %>
+    </div>
+
+  <% end %>
+<% elsif !signed_in? %>
+  <p class="text-muted text-center"> Tenés que iniciar sesión para comentar </p>
+<% else %>
+  <p class="text-muted text-center">
+    Necesitás tener al menos <%= Const::REPUTATION_COMMENT %> puntos de reputación para poder comentar <br>
+    <%= link_to 'Ver mi perfil', current_user %>
+  </p>
+<% end %>

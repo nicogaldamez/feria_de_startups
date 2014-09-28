@@ -1,0 +1,12 @@
+<%= content_tag :div, class: 'comment' do %>
+
+  <p class="text-muted"> <%= comment.body %> </p>
+
+  <%= link_to comment.user, title: comment.user.name do %>
+    <%= image_tag comment.user.portrait('mini'), class: 'avatar'%>
+  <% end %>
+
+  <small class="text-muted"> <%= "hace #{time_ago_in_words(comment.created_at)}" %> </small>
+
+<% end %>
+

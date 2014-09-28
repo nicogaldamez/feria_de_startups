@@ -1,7 +1,7 @@
 <div id="show_product">
-  
+
   <div class="row">
-  
+
     <div class="col-md-5">
       <div class="media">
         <div class="left pull-left">
@@ -10,56 +10,64 @@
             <%= @product.initial.upcase %>
           </div>
         </div>
-    
+
         <div class="media-body" id="popup_product_<%= @product.id %>">
           <%= link_to @product.name, @product.url, class: 'media-heading', target: '_blank' %>
-          <small class="votes_count"> 
-            <%= @product.votes.count || 0 %> votos 
-            - 
+          <small class="votes_count">
+            <%= @product.votes.count || 0 %> votos
+            -
             <%= link_to @product.user.name, @product.user %>
           </small>
         </div>
       </div>
-    </div>  
-      
-    <div class="col-md-5 col-md-offset-1 right">    
+    </div>
+
+    <div class="col-md-5 col-md-offset-1 right">
         <span class="text-muted"> <%= @product.description %> </span>
         <p> <%= link_to truncate(@product.url, :length => 35, :omission => '...'), @product.url, target: '_blank' %> </p>
     </div>
-    
+
   </div>
-  
+
   <div class="row">
     <div class="col-md-12">
-      <% 
+      <%
       product_url = u (view_product_url(@product))
       text = u "#{@product.name}: #{@product.description}"
       via = 'feriadestartups'
       tweet_link = "https://twitter.com/intent/tweet?url=#{product_url}&text=#{text}&via=#{via}"
        %>
       <%= link_to "Tweet", tweet_link, class: 'btn btn-primary btn-sm' %>
-      
+
       <% if signed_in? %>
         <!-- Si ya lo votó resalto el me gusta -->
         <% btn_text = (current_user.voted_for?(@product)) ? 'Ya te gusta' : 'Me gusta'  %>
-        <%= link_to btn_text, polymorphic_url([:vote, @product, Vote.new]), remote: true, 
-                class: "btn btn-success btn-sm popup_like" %> 
+        <%= link_to btn_text, polymorphic_url([:vote, @product, Vote.new]), remote: true,
+                class: "btn btn-success btn-sm popup_like" %>
       <% else %>
-        <%= link_to 'Me gusta', '/auth/twitter', class: 'btn btn-success btn-sm'  %> 
+        <%= link_to 'Me gusta', '/auth/twitter', class: 'btn btn-success btn-sm'  %>
       <% end %>
-      
-      <ul class="list-inline votes"> 
+
+      <ul class="list-inline votes">
         <%= render partial:'vote', collection: @product.votes.recents.limit(3) %>
 
         <% if @product.votes.size > 3 %>
           <li>
             <small>
-            <%= link_to "#{@product.votes.size - 3} más", product_votes_path(@product), class: "text-muted",
+            <%= link_to "#{@product.votes.size - 3} más", product_votes_path(@product),
                         data: { target: "#modal", modalsize: 'submodal', modaltitle: '', nobackdrop: true } %>
             </small>
           </li>
         <% end %>
       </ul>
+
+      <div>
+        <small>
+        <%= link_to content_tag(:span, pluralize(@product.comments_count, 'comentario'), id: dom_id(@product)+'_comments_count'),
+                  product_comments_path(@product), class: "text-muted",
+                  data: { target: "#modal", modalsize: 'submodal', modaltitle: '', nobackdrop: true } %>
+        </small>
+      </div>
     </div>
 
   </div>

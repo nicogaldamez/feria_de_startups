@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924020452) do
+ActiveRecord::Schema.define(version: 20140928142538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 20140924020452) do
     t.datetime "updated_at"
   end
 
+  create_table "comments", force: true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["product_id"], name: "index_comments_on_product_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
   create_table "products", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -46,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140924020452) do
     t.boolean  "published",      default: true
     t.string   "mentions"
     t.datetime "trending_until"
+    t.integer  "comments_count", default: 0,    null: false
   end
 
   add_index "products", ["description"], name: "index_products_on_description", using: :btree
@@ -67,6 +79,7 @@ ActiveRecord::Schema.define(version: 20140924020452) do
     t.boolean  "receive_daily",         default: true
     t.string   "remember_token"
     t.boolean  "fake",                  default: false
+    t.integer  "reputation",            default: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

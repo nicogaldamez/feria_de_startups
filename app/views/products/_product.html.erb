@@ -49,7 +49,15 @@
         -
         <%= link_to "Detalle", product, class: "text-muted",
                   data: { target: "#modal", modalsize: 'small', modaltitle: 'Detalle de producto' } %>
-        
+
+        <% if product.comments_count > 0 %>
+          -
+          <small class="comments_count margin-left-5">
+            <%= link_to icon_left(:comment, "<span id='#{dom_id(product)}_list_comment_count'> #{product.comments_count} </span>".html_safe),
+                        product, class: "text-muted",
+                        data: { target: "#modal", modalsize: 'small', modaltitle: 'Detalle de producto' } %>
+          </small>
+        <% end %>
       </small> 
     </p>
   </div>
