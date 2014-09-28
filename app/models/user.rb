@@ -141,6 +141,11 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  def add_reputation (value)
+    self.reputation = reputation + value
+    save
+  end
+
   private
 
     def create_remember_token

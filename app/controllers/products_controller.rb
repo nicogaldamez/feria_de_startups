@@ -97,7 +97,6 @@ class ProductsController < ApplicationController
     
     # --------------------------------------------
     def get_products
-      # @products = Product.list(params[:query], Product.per_page)
       @products = Product.list(params[:query])
       @products = @products.paginate(page: params[:page], per_page: Const::PRODUCTS_PER_PAGE)
     end

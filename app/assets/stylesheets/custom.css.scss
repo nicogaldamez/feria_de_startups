@@ -114,8 +114,12 @@ form {
 }
 
 /* MODAL */
+.modal {
+  position: absolute;
+}
+
 .submodal {
-  top: 130px;
+  top: 80px;
   z-index: -1;
 }
 

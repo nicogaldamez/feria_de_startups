@@ -1,0 +1,6 @@
+$('#no_comments').hide();
+$('#<%= dom_id(@product)+'_comments'%>').append('<%= escape_javascript(render @comment) %>');
+$('#new_comment')[0].reset('');
+
+$('#<%=dom_id(@product)%>_comments_count').html('<%= pluralize(@product.comments_count,'comentario') %>');
+$('#<%=dom_id(@product)%>_list_comment_count').html('<%= @product.comments_count %>');

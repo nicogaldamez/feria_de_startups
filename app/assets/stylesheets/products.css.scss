@@ -169,6 +169,23 @@
   }
 }
 
+.all_votes {
+  margin-top: 20px;
+}
+
+.product_comments {
+  padding-top: 20px;
+  padding-left: 0;
+
+  .comment {
+    margin-bottom: 20px
+  }
+
+  p {
+    font-size: 0.9em
+  }
+}
+
 /* ---- ANIMATIONS ---- */
 
 .spin {

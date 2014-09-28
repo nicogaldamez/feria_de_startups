@@ -18,6 +18,7 @@ class Product < ActiveRecord::Base
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   has_and_belongs_to_many :categories
   has_many :votes, :class_name => "Vote", :foreign_key => "product_id", dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   #--------------------------------------------- MISC  
   include PgSearch
@@ -38,7 +39,7 @@ class Product < ActiveRecord::Base
   #--------------------------------------------- CALLBACK
   before_create :mark_trending
   before_create :set_categories
-  
+
   #--------------------------------------------- SCOPES
   scope :today_products, -> { where('created_at::date > ?', Time.now - 24.hour) }
   scope :recents, -> { includes(:user).order(created_at: :desc) }

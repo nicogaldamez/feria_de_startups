@@ -6,6 +6,8 @@ class Permission
     allow :sessions, [:create, :destroy]
     allow :auth, [:failure]
     allow :users, [:show]
+    allow :votes, [:index]
+    allow :comments, [:index]
 
     # Miembro
     if user
@@ -18,6 +20,10 @@ class Permission
       
       allow :users, [:edit, :update] do |u|
         u.id == user.id
+      end
+
+      allow :comments, [:create] do |comment|
+        user.reputation >= Const::REPUTATION_COMMENT || comment.product.user == user
       end
       
     end

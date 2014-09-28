@@ -23,6 +23,8 @@ class Vote < ActiveRecord::Base
   
   #--------------------------------------------- CALLBACK
   after_save :mark_trending
+  after_create :add_reputation
+  after_destroy :remove_reputation
 
   #--------------------------------------------- SCOPES
   scope :recents, -> { order(created_at: :desc) }
@@ -36,5 +38,13 @@ class Vote < ActiveRecord::Base
     product.trending_until = 24.hours.from_now
     product.save
   end
-  
+
+  def add_reputation
+    product.user.add_reputation(1) unless product.user == self.user
+  end
+
+  def remove_reputation
+    product.user.add_reputation(-1) unless product.user == self.user
+  end
+
 end

@@ -12,6 +12,7 @@ FeriaDeStartups::Application.routes.draw do
         get 'remove_fake_vote'
       end
     end
+    resources :comments
   end
   
   get '/auth/:provider/callback', to: 'sessions#create'

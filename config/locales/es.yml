@@ -153,13 +153,13 @@ es:
         other: "%{count} días"
       x_minutes:
         one: 1 minuto
-        other: "aproximadamente %{count} minutos"
+        other: "%{count} minutos"
       x_months:
         one: 1 mes
         other: "%{count} meses"
       x_seconds:
         one: 1 segundo
-        other: "aproximadamente %{count} segundos"
+        other: "%{count} segundos"
     prompts:
       year: 'Año'
       month: 'Mes'

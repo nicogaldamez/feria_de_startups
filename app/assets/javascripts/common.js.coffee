@@ -28,7 +28,7 @@ String::capitalize = ->
     $(modal + " .modal-title").html title
     $(modal).modal modalOptions
     .on 'hidden.bs.modal', ->
-      $(modal + " .modal-body").html ''
+      $(".modal .modal-body").html ''
 
 # AGREGO HTTP AL VALOR INGRESADO EN UN INPUT TYPE URL    
 @addHttp = (input) ->    
@@ -40,17 +40,19 @@ String::capitalize = ->
   input.value = string
 
 @initialize_modals = ->
+  $("a[data-target=#modal]").unbind('click')
   $("a[data-target=#modal]").click (ev) ->
     ev.preventDefault()
     target = $(this).attr("href")
-  
+
     size = $(this).data('modalsize')
     title= $(this).data('modaltitle')
 
+    $(this).data('event_registered', true)
     options = {closedDisabled: $(this).data('closeDisabled'), noBackdrop: $(this).data('nobackdrop') }
-    
+
     openModal(size, target, title, options)
-    
+
     return
     
 @initialize_tooltips = ->
