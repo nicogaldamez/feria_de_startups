@@ -18,13 +18,17 @@ String::capitalize = ->
     $(modal + " .close").hide()
   else
     $(modal + " .close").show()
+
+  if options.noBackdrop
+    modalOptions.backdrop = false
   
   
   # load the url and show modal on success
   $(modal + " .modal-body").load url, ->
     $(modal + " .modal-title").html title
     $(modal).modal modalOptions
-    return
+    .on 'hidden.bs.modal', ->
+      $(modal + " .modal-body").html ''
 
 # AGREGO HTTP AL VALOR INGRESADO EN UN INPUT TYPE URL    
 @addHttp = (input) ->    
@@ -42,8 +46,8 @@ String::capitalize = ->
   
     size = $(this).data('modalsize')
     title= $(this).data('modaltitle')
-    
-    options = {closedDisabled: $(this).data('closeDisabled')}  
+
+    options = {closedDisabled: $(this).data('closeDisabled'), noBackdrop: $(this).data('nobackdrop') }
     
     openModal(size, target, title, options)
     

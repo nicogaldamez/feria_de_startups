@@ -51,10 +51,6 @@ p {
 
 li.no-style { list-style: none;}
 
-.margin-left-5{ margin-left: 5px !important; }
-
-.margin-right-5{ margin-right: 5px !important; }
-
 /* header */
 header {
   background: image_url('banderines.png') no-repeat;
@@ -118,6 +114,15 @@ form {
 }
 
 /* MODAL */
+.submodal {
+  top: 130px;
+  z-index: -1;
+}
+
+.modal-open .modal {
+  overflow: visible;
+}
+
 #signin_modal {
   text-align: center;
   p { 
@@ -128,3 +133,8 @@ form {
 
 /* ---- ESTRUCTURA ---- */
 .margin-bottom-10 { margin-bottom: 10px; }
+.margin-top-10 { margin-top: 10px; }
+.margin-left-10 { margin-left: 10px; }
+.margin-right-10 { margin-right: 10px; }
+.margin-left-5{ margin-left: 5px !important; }
+.margin-right-5{ margin-right: 5px !important; }

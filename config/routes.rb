@@ -5,7 +5,7 @@ FeriaDeStartups::Application.routes.draw do
     member do
       get 'view'
     end
-    resources :votes, only: [] do
+    resources :votes, only: [:index] do
       collection do
         get 'vote'
         get 'fake_vote'

@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     
     respond_to do |format|
-      if @product.update(params[:product])
+      if @product.update(product_params)
         format.js 
       else
         raise(RequestExceptions::BadRequestError.new(@product.errors.full_messages))  

@@ -36,7 +36,9 @@
     
     # Actualizo la cantidad de votos
     $('#product_'+id+' .votes_count').html votes
-    $('#popup_product_'+id+' .votes_count').html(votes + ' votos')   
+    $('#popup_product_'+id+' .votes_count').html(votes + ' votos')
+
+  initialize_modals();
     
 # EVENTOS LISTADO DE PRODUCTOS
 @productsListEvents = ->

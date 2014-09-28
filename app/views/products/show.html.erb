@@ -50,14 +50,36 @@
       
       <ul class="list-inline votes"> 
         <%= render partial:'vote', collection: @product.votes.recents.limit(3) %>
+
         <% if @product.votes.size > 3 %>
-          <li> <small> <%= link_to "#{@product.votes.size - 3} más", "#" %> </small>
+          <li>
+            <small>
+            <%= link_to "#{@product.votes.size - 3} más", product_votes_path(@product), class: "text-muted",
+                        data: { target: "#modal", modalsize: 'submodal', modaltitle: '', nobackdrop: true } %>
+            </small>
+          </li>
         <% end %>
       </ul>
     </div>
-    
-  </div> 
-  
+
+  </div>
 </div>
 
-<%= javascript_tag 'viewProductEvents()' %>
+<div id="submodal_modal" class="modal submodal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel"> </h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag 'viewProductEvents();' %>
+
