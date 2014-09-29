@@ -48,29 +48,41 @@ class Product < ActiveRecord::Base
   scope :published, -> { where(published: true) }
   
   #--------------------------------------------- METHODS
-  
-    
+
+  #---------------------------------------------
   def to_builder
     Jbuilder.new do |product|
       product.(self, :id, :name, :description, :url, :votes_count)
     end
   end
-  
+
+  #---------------------------------------------
   def initial
     self.name[0,1]
   end
-  
+
+  #---------------------------------------------
   def is_owner?(user)
     self.user == user
   end
-  
+
+  #---------------------------------------------
   def self.list (query)
     result = (query.present?) ? search(query) : all
     result = result.includes(:user)
     result = result.where(published: true)
     result = result.order(trending_until: :desc)
   end
-  
+
+  #---------------------------------------------
+  def self.best_since (date)
+    result = all
+    result = result.includes(:user)
+    result = result.where('published and trending_until > ?', date)
+    result = result.order(votes_count: :desc)
+  end
+
+  #---------------------------------------------
   # Retorna los productos del usuario y cantidad de votos 
   # que recibieron votos en una fecha
   def self.voted(user='all', date)
@@ -89,7 +101,8 @@ class Product < ActiveRecord::Base
     result = result.order('1 desc')
     result
   end
-  
+
+  #---------------------------------------------
   def color
     if categories.count == 0
       colors = ["#f16565", "#6cc884", "#40d6d5","#6584ca"]
@@ -97,9 +110,9 @@ class Product < ActiveRecord::Base
     else
       categories.first.color
     end
-    
   end
-  
+
+  #---------------------------------------------
   def self.reset_categories
     Product.find_each do |product|
       matching_categories = Category.search(product.description)
@@ -110,11 +123,12 @@ class Product < ActiveRecord::Base
   
   
   private
-  
+  #---------------------------------------------
   def mark_trending
     self.trending_until = 24.hours.from_now
   end
-  
+
+  #---------------------------------------------
   def set_categories
     matching_categories = Category.search(description)
     self.categories << matching_categories

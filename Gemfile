@@ -14,6 +14,7 @@ group :development do
   gem 'annotate', '2.5.0'
   gem "letter_opener"
   gem "pry"
+  gem "hirb"
 end
 
 group :test do

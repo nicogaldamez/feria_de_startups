@@ -9,11 +9,20 @@ class Comment < ActiveRecord::Base
   #--------------------------------------------- VALIDATION
   validates :body,  :presence => true
   validates :user,  :presence => true
-  # validates :product,  :presence => true
 
   #--------------------------------------------- CALLBACK
+  after_save :mark_trending
 
   #--------------------------------------------- SCOPES
   default_scope -> { order(:created_at) }
   #--------------------------------------------- METHODS
+
+
+  private
+
+  def mark_trending
+    product.trending_until = 24.hours.from_now
+    product.save
+  end
+
 end
