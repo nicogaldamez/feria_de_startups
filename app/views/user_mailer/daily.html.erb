@@ -11,7 +11,7 @@
       Feria de Startups 
     </h1>
     <blockquote>
-      <p> Hola <%= @user.name %>!, estos son los productos destacados del momento: </p>
+      <p> Hola <%= @user.name %>!, estos son algunos de los productos destacados del momento: </p>
 
       <ul style="margin-bottom: 20px;">
         <% @products.each do |product| %>
@@ -23,6 +23,8 @@
           </li>
         <% end %> 
       </ul>
+
+      <p> Para ver el resto de los productos ingresá a la Feria de Startups. </p>
     </blockquote>
     <footer style="text-align: center;">
       <%= link_to "Ir a la Feria de Startups", root_url, class: 'btn',
