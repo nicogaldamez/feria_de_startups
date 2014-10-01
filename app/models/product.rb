@@ -25,6 +25,7 @@ class Product < ActiveRecord::Base
   pg_search_scope :search, against: [:name, :description],
                   associated_against: {categories: [:name]},
                   :ignoring => :accents,
+                  :order_within_rank => "products.trending_until DESC",
                   :using => { 
                     :tsearch => {:prefix => true, :dictionary => "spanish"} 
                   }
