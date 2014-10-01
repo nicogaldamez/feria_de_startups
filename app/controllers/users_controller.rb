@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   # -------------------------------------------------
   def show
     @user = User.find(params[:id])
-    @products = @user.products.limit(10)
+    @products = @user.products.published.limit(10)
     @votes = @user.voted_products.limit(10)
   end
   

@@ -327,3 +327,10 @@ LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
 ERROR:  relation "categories" does not exist at character 22
 STATEMENT:  SELECT COUNT(*) FROM "categories" INNER JOIN "categories_products" ON "categories"."id" = "categories_products"."category_id" WHERE "categories_products"."product_id" = $1
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-09-29 22:48:31 ART
+LOG:  autovacuum launcher started
+LOG:  database system is ready to accept connections
