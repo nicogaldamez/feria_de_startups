@@ -10,7 +10,7 @@
 
 <hr>
 
-<% if allow?(:comments, :create, @comment) %>
+<% if !allow?(:comments, :create, @comment) %>
 
   <h5> Nuevo comentario </h5>
 
@@ -31,7 +31,7 @@
   <p class="text-muted text-center"> Tenés que iniciar sesión para comentar </p>
 <% else %>
   <p class="text-muted text-center">
-    Necesitás tener al menos <%= Const::REPUTATION_COMMENT %> puntos de reputación para poder comentar <br>
-    <%= link_to 'Ver mi perfil', current_user %>
+    No tenés la suficiente reputación para comentar <br>
+    <%= link_to '¿Qué significa esto?', Const::ABOUT_US_URL, target: '_blank' %>
   </p>
 <% end %>
