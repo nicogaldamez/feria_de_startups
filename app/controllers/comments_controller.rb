@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  before_filter :get_product
+  # before_filter :get_product
 
   layout false
 
@@ -28,12 +28,16 @@ class CommentsController < ApplicationController
 
   private
   # ---------------------------------------------
-  def get_product
-    @product = Product.find(params[:product_id])
-  end
+  # def get_product
+  #   @product = Product.find(params[:product_id])
+  # end
 
   def comment_params
     params.require(:comment).permit(:body)
+  end
+
+  def current_resource
+    @current_resource = @product = Product.find(params[:product_id])
   end
 
 end

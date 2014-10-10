@@ -22,8 +22,8 @@ class Permission
         u.id == user.id
       end
 
-      allow :comments, [:create] do |comment|
-        user.reputation >= Const::REPUTATION_COMMENT || comment.product.user == user
+      allow :comments, [:create] do |commentable|
+        user.reputation >= Const::REPUTATION_COMMENT || commentable.user == user
       end
       
     end

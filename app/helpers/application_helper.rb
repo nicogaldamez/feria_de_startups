@@ -1,5 +1,15 @@
 module ApplicationHelper
-  
+
+  # Retorna el título completo
+  def full_title()
+    base_title = "Feria de Startups"
+    if signed_in? && current_user.is_admin?
+      "#{base_title} | Admin"
+    else
+      base_title
+    end
+  end
+
   def randomized_background_color
     colors = ["#f95dae", "#5db9f8", "#f16565", "#6cc884", "#40d6d5", "#ff9b3d",
               "#af5dce", "#f4e265", "#6584ca", "#f55952"]
