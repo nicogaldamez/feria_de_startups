@@ -15,6 +15,7 @@
 # gem 'pg'
 #
 development:
+  host: localhost
   adapter: postgresql
   encoding: unicode
   database: feria_de_startups_development
