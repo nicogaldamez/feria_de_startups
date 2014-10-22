@@ -5,7 +5,7 @@ class AdminController < ApplicationController
   
   # --------------------------------------------------------
   def index
-    @products = Product.published.recents.limit(5)
+    @products = get_products.limit(5)
     @products_count = Product.published.count
     @users = User.recents.limit(5)
     @users_count = User.count
@@ -14,15 +14,13 @@ class AdminController < ApplicationController
   
   # --------------------------------------------------------
   def products
-    @products = Product.recents.paginate(page: params[:page], per_page: 10)
+    @products = get_products.paginate(page: params[:page], per_page: 10)
     respond_to do |format|
       format.js 
       format.html      
     end
   end
-  
-  
-  
+
   #----------------------------------------------
   def toggle_published
     @product = Product.find(params[:id])
@@ -50,5 +48,14 @@ class AdminController < ApplicationController
     respond_to do |f|
       f.js { render js: "alert('Enviados');" }
     end
+  end
+
+
+
+  private
+
+  def get_products
+    result = params[:unpublished] ? Product.unpublished : Product.published
+    result.recents.limit(10)
   end
 end

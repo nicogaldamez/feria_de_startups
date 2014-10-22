@@ -358,3 +358,10 @@ LOG:  database system was shut down at 2014-10-11 08:35:16 ART
 LOG:  creating missing WAL directory "pg_xlog/archive_status"
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+LOG:  autovacuum launcher shutting down
+LOG:  received smart shutdown request
+LOG:  shutting down
+LOG:  database system is shut down
+LOG:  database system was shut down at 2014-10-18 14:18:18 ART
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started

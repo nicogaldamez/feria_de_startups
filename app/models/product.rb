@@ -47,7 +47,8 @@ class Product < ActiveRecord::Base
   scope :voted_by_user, ->(user) { joins(:votes).where('votes.user_id = :user', user: user).order(created_at: :desc) }
   scope :except, ->(users) { where('id not in (:users)', users: users) }
   scope :published, -> { where(published: true) }
-  
+  scope :unpublished, -> { where(published: false) }
+
   #--------------------------------------------- METHODS
 
   #---------------------------------------------

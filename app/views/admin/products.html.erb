@@ -7,6 +7,13 @@
                   data: { target: "#modal", modalsize: 'small', modaltitle: 'Agregar un producto' } %>
       </h2>
     </div>
+    <div class="col-md-6 text-right">
+      <% if !params[:unpublished] %>
+        <%= link_to "Mostrar sin publicar", products_admin_index_path(unpublished: true) %>
+      <% else %>
+        <%= link_to "Mostrar publicados", products_admin_index_path %>
+      <% end %>
+    </div>
   </div>
 
   <div id="admin-products-container">
