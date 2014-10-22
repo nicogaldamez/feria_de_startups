@@ -56,6 +56,6 @@ class AdminController < ApplicationController
 
   def get_products
     result = params[:unpublished] ? Product.unpublished : Product.published
-    result.recents.limit(10)
+    result.order(trending_until: :desc).limit(10)
   end
 end
